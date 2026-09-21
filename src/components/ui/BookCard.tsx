@@ -27,7 +27,7 @@ const BookCard = ({ book, index }: BookCardProps): ReactElement => {
   };
 
   return (
-    <article className="group flex flex-col overflow-hidden rounded-2xl border border-[#EADBCE] bg-white shadow-xs transition-all duration-300 ease-out hover:-translate-y-1 hover:border-[#D4A373] hover:shadow-xl">
+    <article className="group flex flex-col overflow-hidden rounded-2xl border border-[#EADBCE] bg-white shadow-xs transition-[transform,box-shadow,border-color] duration-200 ease-out hover:-translate-y-1 hover:border-[#D4A373] hover:shadow-xl">
       <Link
         href={`/books/${book.bookId}`}
         className="relative flex h-36 items-center justify-center overflow-hidden bg-linear-to-br from-[#FAF6F0] via-[#F5ECE3] to-[#EFE4D6] p-2 transition-colors duration-300 sm:h-52 sm:p-4"
@@ -85,18 +85,20 @@ const BookCard = ({ book, index }: BookCardProps): ReactElement => {
             <button
               type="button"
               onClick={handleRead}
-              className={`flex items-center justify-center gap-1 rounded-xl py-1.5 text-[10px] font-bold shadow-xs transition-all duration-200 hover:-translate-y-0.5 active:scale-[0.98] sm:gap-1.5 sm:py-2 sm:text-xs ${
+              className={`flex h-8 items-center justify-center gap-1 rounded-xl border text-[10px] font-bold shadow-xs transition-colors duration-150 active:scale-[0.98] sm:h-9 sm:gap-1.5 sm:text-xs ${
                 isReading
-                  ? "bg-[#C17937] text-white shadow-[#C17937]/30"
-                  : "bg-[#F5ECE3] text-[#5B3315] hover:bg-[#EADBCE] hover:text-[#3D2310]"
+                  ? "border-[#C17937] bg-[#C17937] text-white shadow-[#C17937]/30"
+                  : "border-[#DCC8B6] bg-[#F5ECE3] text-[#5B3315] hover:border-[#8B5A2B] hover:bg-[#EADBCE] hover:text-[#3D2310]"
               }`}
             >
               {isReading ? (
-                <Check className="h-3 w-3 sm:h-3.5 sm:w-3.5" />
+                <Check className="h-3 w-3 shrink-0 sm:h-3.5 sm:w-3.5" />
               ) : (
-                <BookOpen className="h-3 w-3 sm:h-3.5 sm:w-3.5" />
+                <BookOpen className="h-3 w-3 shrink-0 sm:h-3.5 sm:w-3.5" />
               )}
-              <span>{isReading ? "Reading" : "Read"}</span>
+              <span className="whitespace-nowrap">
+                {isReading ? "Reading" : "Read"}
+              </span>
             </button>
 
             <button
@@ -105,26 +107,28 @@ const BookCard = ({ book, index }: BookCardProps): ReactElement => {
                 e.preventDefault();
                 toggleWishlist(book.bookId);
               }}
-              className={`flex items-center justify-center gap-1 rounded-xl py-1.5 text-[10px] font-bold shadow-xs transition-all duration-200 hover:-translate-y-0.5 active:scale-[0.98] sm:gap-1.5 sm:py-2 sm:text-xs ${
+              className={`flex h-8 items-center justify-center gap-1 rounded-xl border text-[10px] font-bold shadow-xs transition-colors duration-150 active:scale-[0.98] sm:h-9 sm:gap-1.5 sm:text-xs ${
                 wishlisted
-                  ? "bg-[#8B5A2B] text-white shadow-[#8B5A2B]/30"
-                  : "border border-[#DCC8B6] bg-white text-[#4A2E18] hover:border-[#8B5A2B] hover:bg-[#F5ECE3] hover:text-[#8B5A2B]"
+                  ? "border-[#8B5A2B] bg-[#8B5A2B] text-white shadow-[#8B5A2B]/30"
+                  : "border-[#DCC8B6] bg-white text-[#4A2E18] hover:border-[#8B5A2B] hover:bg-[#F5ECE3] hover:text-[#8B5A2B]"
               }`}
             >
               {wishlisted ? (
-                <Check className="h-3 w-3 sm:h-3.5 sm:w-3.5" />
+                <Check className="h-3 w-3 shrink-0 sm:h-3.5 sm:w-3.5" />
               ) : (
-                <ShoppingBag className="h-3 w-3 sm:h-3.5 sm:w-3.5" />
+                <ShoppingBag className="h-3 w-3 shrink-0 sm:h-3.5 sm:w-3.5" />
               )}
-              <span>{wishlisted ? "Saved" : "Wishlist"}</span>
+              <span className="whitespace-nowrap">
+                {wishlisted ? "Saved" : "Wishlist"}
+              </span>
             </button>
 
             <Link
               href={`/books/${book.bookId}`}
-              className="col-span-2 flex items-center justify-center gap-1.5 rounded-xl bg-[#8B5A2B] py-2 text-[11px] font-bold text-white shadow-xs shadow-[#8B5A2B]/20 transition-all duration-200 hover:-translate-y-0.5 hover:bg-[#6F4420] hover:shadow-md active:scale-[0.98] sm:py-2.5 sm:text-sm"
+              className="col-span-2 flex h-8 items-center justify-center gap-1.5 rounded-xl border border-[#8B5A2B] bg-[#8B5A2B] text-[11px] font-bold text-white shadow-xs shadow-[#8B5A2B]/20 transition-colors duration-150 hover:border-[#6F4420] hover:bg-[#6F4420] hover:shadow-md active:scale-[0.98] sm:h-9 sm:text-sm"
             >
-              <BookText className="h-3.5 w-3.5 sm:h-4 sm:w-4" />
-              <span>Book Details</span>
+              <BookText className="h-3.5 w-3.5 shrink-0 sm:h-4 sm:w-4" />
+              <span className="whitespace-nowrap">Book Details</span>
             </Link>
           </div>
         </div>
