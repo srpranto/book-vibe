@@ -5,6 +5,8 @@ import "./globals.css";
 import Navbar from "@/components/layout/Navbar";
 import Footer from "@/components/layout/Footer";
 import WishlistFAB from "@/components/ui/WishlistFAB";
+import { CommandPalette } from "@/components/ui/CommandPalette";
+import { AmbientReadingRoom } from "@/components/ui/AmbientReadingRoom";
 import { Providers } from "@/context/Providers";
 
 const quicksand = Quicksand({
@@ -40,6 +42,8 @@ export default function RootLayout({
           <div className="flex-1">{children}</div>
           <Footer />
           <WishlistFAB />
+          <CommandPalette />
+          <AmbientReadingRoom />
         </Providers>
       </body>
     </html>

@@ -14,6 +14,8 @@ import {
   ReadWishlistButtons,
 } from "@/components/books/BookActions";
 import ReadingStatusTracker from "@/components/books/ReadingStatusTracker";
+import BookMarginalia from "@/components/books/BookMarginalia";
+import LiteraryKinshipSection from "@/components/books/LiteraryKinshipSection";
 
 type Props = {
   params: Promise<{ id: string }>;
@@ -146,6 +148,13 @@ const BookDetailsPage = async ({ params }: Props): Promise<ReactElement> => {
             </div>
           </div>
         </div>
+
+        <BookMarginalia bookId={book.bookId} bookName={book.bookName} />
+
+        <LiteraryKinshipSection
+          bookId={book.bookId}
+          bookName={book.bookName}
+        />
 
         {relatedBooks.length > 0 && (
           <section className="mt-16 border-t border-[#EADBCE] pt-12">

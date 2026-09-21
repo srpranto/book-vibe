@@ -5,7 +5,7 @@ import type { ReactElement } from "react";
 import Link from "next/link";
 import Image from "next/image";
 import { usePathname } from "next/navigation";
-import { Home, Library, BookMarked } from "lucide-react";
+import { Home, Library, BookMarked, Compass, Search, Sparkles } from "lucide-react";
 
 interface NavLinkItem {
   href: string;
@@ -16,6 +16,7 @@ interface NavLinkItem {
 const navLinks: readonly NavLinkItem[] = [
   { href: "/", label: "Home", icon: Home },
   { href: "/allbooks", label: "Library", icon: Library },
+  { href: "/journeys", label: "Journeys", icon: Compass },
   { href: "/plan-to-read", label: "Plan to Read", icon: BookMarked },
 ] as const;
 
@@ -197,12 +198,28 @@ const Navbar = (): ReactElement => {
             </ul>
           </div>
 
-          <div className="hidden items-center gap-2 md:flex lg:gap-3">
-            <button className="rounded-xl border border-[#DCC8B6] bg-white px-3.5 py-2 text-xs font-semibold text-[#4A2E18] shadow-xs transition-all duration-200 hover:border-[#8B5A2B] hover:bg-[#F5ECE3] hover:text-[#8B5A2B] active:scale-[0.98] lg:px-5 lg:py-2.5 lg:text-sm">
-              Sign In
+          <div className="hidden items-center gap-2 md:flex lg:gap-2.5">
+            <button
+              type="button"
+              onClick={() => window.dispatchEvent(new CustomEvent("open-command-palette"))}
+              className="inline-flex items-center gap-2 rounded-xl border border-[#DCC8B6] bg-white px-3 py-2 text-xs font-semibold text-[#4A2E18] shadow-xs transition-all duration-200 hover:border-[#8B5A2B] hover:bg-[#F5ECE3] active:scale-[0.98]"
+              title="Search catalog (Ctrl+K)"
+            >
+              <Search className="h-3.5 w-3.5 text-[#8B5A2B]" />
+              <span className="hidden xl:inline">Spotlight</span>
+              <kbd className="rounded bg-[#FAF7F2] px-1.5 py-0.5 font-mono text-[10px] text-[#8B6E5A] ring-1 ring-[#DCC8B6]">
+                Ctrl K
+              </kbd>
             </button>
-            <button className="rounded-xl bg-[#8B5A2B] px-3.5 py-2 text-xs font-semibold text-white shadow-md shadow-[#8B5A2B]/20 transition-all duration-200 hover:bg-[#6F4420] hover:shadow-lg active:scale-[0.98] lg:px-5 lg:py-2.5 lg:text-sm">
-              Sign Up
+
+            <button
+              type="button"
+              onClick={() => window.dispatchEvent(new CustomEvent("open-ambient-room"))}
+              className="inline-flex items-center gap-1.5 rounded-xl border border-[#DCC8B6] bg-white px-3 py-2 text-xs font-semibold text-[#4A2E18] shadow-xs transition-all duration-200 hover:border-[#8B5A2B] hover:bg-[#F5ECE3] active:scale-[0.98]"
+              title="Open Quiet Reading Sanctuary (Ambient sound & timer)"
+            >
+              <Sparkles className="h-3.5 w-3.5 text-[#8B5A2B]" />
+              <span className="hidden lg:inline">Sanctuary</span>
             </button>
           </div>
         </div>
@@ -246,11 +263,28 @@ const Navbar = (): ReactElement => {
             </div>
 
             <div className="flex flex-col items-center space-y-2 text-center">
-              <button className="w-full rounded-xl border border-[#DCC8B6] bg-white py-2.5 text-center text-sm font-semibold text-[#4A2E18] shadow-xs transition-all duration-200 hover:border-[#8B5A2B] hover:bg-[#F5ECE3] hover:text-[#8B5A2B] active:scale-[0.98]">
-                Sign In
+              <button
+                type="button"
+                onClick={() => {
+                  setMobileOpen(false);
+                  window.dispatchEvent(new CustomEvent("open-command-palette"));
+                }}
+                className="flex w-full items-center justify-center gap-2 rounded-xl border border-[#DCC8B6] bg-white py-2.5 text-center text-sm font-semibold text-[#4A2E18] shadow-xs transition-all duration-200 hover:border-[#8B5A2B] hover:bg-[#F5ECE3] active:scale-[0.98]"
+              >
+                <Search className="h-4 w-4 text-[#8B5A2B]" />
+                <span>Search Catalog (Ctrl K)</span>
               </button>
-              <button className="w-full rounded-xl bg-[#8B5A2B] py-2.5 text-center text-sm font-semibold text-white shadow-md shadow-[#8B5A2B]/20 transition-all duration-200 hover:bg-[#6F4420] active:scale-[0.98]">
-                Sign Up
+
+              <button
+                type="button"
+                onClick={() => {
+                  setMobileOpen(false);
+                  window.dispatchEvent(new CustomEvent("open-ambient-room"));
+                }}
+                className="flex w-full items-center justify-center gap-2 rounded-xl bg-[#8B5A2B] py-2.5 text-center text-sm font-semibold text-white shadow-md shadow-[#8B5A2B]/20 transition-all duration-200 hover:bg-[#6F4420] active:scale-[0.98]"
+              >
+                <Sparkles className="h-4 w-4" />
+                <span>Quiet Reading Sanctuary</span>
               </button>
             </div>
           </div>

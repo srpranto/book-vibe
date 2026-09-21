@@ -16,8 +16,11 @@ import {
   Clock,
   Sparkles,
   ExternalLink,
+  PenLine,
 } from "lucide-react";
 import { useReadingStatus } from "@/context/ReadingStatusContext";
+import { useMarginalia } from "@/context/MarginaliaContext";
+import LibraryDataTools from "@/components/books/LibraryDataTools";
 import {
   READING_STATUS_OPTIONS,
   type ReadingStatusValue,
@@ -168,6 +171,7 @@ interface TrackedBook extends Book {
 
 const PlanToReadView = ({ allBooks }: PlanToReadViewProps): ReactElement => {
   const { statusMap, setStatus, isMounted } = useReadingStatus();
+  const { marginaliaMap } = useMarginalia();
   const [activeTab, setActiveTab] = useState<FilterTab>("all");
   const [searchQuery, setSearchQuery] = useState<string>("");
   const [openDropdownBookId, setOpenDropdownBookId] = useState<number | null>(
@@ -306,6 +310,10 @@ const PlanToReadView = ({ allBooks }: PlanToReadViewProps): ReactElement => {
             </div>
           </div>
         </div>
+      </div>
+
+      <div className="mb-6">
+        <LibraryDataTools allBooks={allBooks} />
       </div>
 
       <div className="mb-6 flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between">
@@ -491,6 +499,12 @@ const PlanToReadView = ({ allBooks }: PlanToReadViewProps): ReactElement => {
                       <span className="hidden text-[#6F5B50] sm:inline">
                         • {book.yearOfPublishing}
                       </span>
+
+                      {marginaliaMap[book.bookId]?.notes?.trim() && (
+                        <span className="inline-flex items-center gap-1 rounded-full bg-[#FAF6F0] px-2 py-0.5 text-[10px] font-bold text-[#8B5A2B] ring-1 ring-[#DCC8B6]">
+                          <PenLine className="h-2.5 w-2.5" /> Has Notes
+                        </span>
+                      )}
                     </div>
                   </div>
                 </div>
