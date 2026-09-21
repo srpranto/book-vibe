@@ -4,7 +4,7 @@ import { useCallback, useEffect, useRef, useState } from "react";
 import Link from "next/link";
 import Image from "next/image";
 import { usePathname } from "next/navigation";
-import bookIcon from "@/assets/book.ico";
+import coffeeIcon from "@/assets/coffee.svg";
 
 const navLinks = [
   { href: "/", label: "Home" },
@@ -35,6 +35,8 @@ const Navbar = () => {
         width: elRect.width,
       });
       setReady(true);
+    } else {
+      setReady(false);
     }
   }, [pathname]);
 
@@ -51,33 +53,34 @@ const Navbar = () => {
 
   return (
     <header className="sticky top-0 z-50 px-4 pt-4">
-      <nav className="container mx-auto max-w-7xl rounded-2xl border border-gray-200/70 bg-white/90 px-4 shadow-sm backdrop-blur-md lg:px-6">
+      <nav className="container mx-auto max-w-7xl rounded-2xl border border-[#EADBCE] bg-[#FAF7F2]/90 px-4 shadow-sm backdrop-blur-md lg:px-6">
         <div className="flex h-16 items-center justify-between">
-          {/* Logo */}
+          {/* Logo with Coffee & Book touch */}
           <Link
             href="/"
-            className="flex items-center gap-2 text-2xl font-extrabold tracking-tight text-emerald-600 transition hover:text-emerald-700"
+            className="flex items-center gap-2 text-2xl font-extrabold tracking-tight text-[#8B5A2B] transition hover:text-[#6F4420]"
           >
-            <span className="flex h-9 w-9 items-center justify-center rounded-xl bg-emerald-100 p-1">
+            <span className="flex h-9 w-9 items-center justify-center rounded-xl bg-[#F0E4D8] p-2 text-base shadow-xs text-[#8B5A2B]">
               <Image
-                src={bookIcon}
+                src={coffeeIcon}
                 alt="Book Vibe logo"
-                width={28}
-                height={28}
+                width={20}
+                height={20}
+                className="h-5 w-5"
               />
             </span>
-            Book <span className="text-gray-900">Vibe</span>
+            Book <span className="text-[#2C1810]">Vibe</span>
           </Link>
 
-          {/* Desktop Navigation with sliding indicator */}
+          {/* Desktop Navigation with sliding coffee cream pill */}
           <div className="hidden lg:flex">
             <ul
               ref={containerRef}
-              className="relative flex items-center gap-2 rounded-full bg-gray-50 p-1"
+              className="relative flex items-center gap-1.5 rounded-full bg-[#EFE6DC]/70 p-1"
             >
-              {/* Sliding pill — hidden until first measurement to avoid flash */}
+              {/* Sliding pill — warm cream card shadow */}
               <span
-                className="pointer-events-none absolute top-1 bottom-1 rounded-full bg-white shadow-sm"
+                className="pointer-events-none absolute top-1 bottom-1 rounded-full bg-white shadow-sm ring-1 ring-[#EADBCE]/50"
                 style={{
                   left: slider.left,
                   width: slider.width,
@@ -97,8 +100,8 @@ const Navbar = () => {
                     href={link.href}
                     className={`block rounded-full px-5 py-2 text-sm font-medium transition-colors duration-200 ${
                       pathname === link.href
-                        ? "font-semibold text-gray-900"
-                        : "text-gray-600 hover:text-emerald-600"
+                        ? "font-bold text-[#2C1810]"
+                        : "text-[#6B5141] hover:text-[#8B5A2B]"
                     }`}
                   >
                     {link.label}
@@ -110,11 +113,11 @@ const Navbar = () => {
 
           {/* Desktop Actions */}
           <div className="hidden items-center gap-3 lg:flex">
-            <button className="rounded-xl border border-gray-200 bg-white px-5 py-2.5 text-sm font-semibold text-gray-700 transition hover:border-emerald-200 hover:bg-emerald-50 hover:text-emerald-600">
+            <button className="rounded-xl border border-[#DCC8B6] bg-white px-5 py-2.5 text-sm font-semibold text-[#4A2E18] shadow-xs transition hover:border-[#8B5A2B] hover:bg-[#F5ECE3] hover:text-[#8B5A2B]">
               Sign In
             </button>
 
-            <button className="rounded-xl bg-emerald-600 px-5 py-2.5 text-sm font-semibold text-white shadow-md shadow-emerald-600/20 transition hover:bg-emerald-700 hover:shadow-lg">
+            <button className="rounded-xl bg-[#8B5A2B] px-5 py-2.5 text-sm font-semibold text-white shadow-md shadow-[#8B5A2B]/20 transition hover:bg-[#6F4420] hover:shadow-lg">
               Sign Up
             </button>
           </div>
@@ -123,7 +126,7 @@ const Navbar = () => {
           <div className="lg:hidden">
             <button
               onClick={() => setMobileOpen((prev) => !prev)}
-              className="flex h-10 w-10 items-center justify-center rounded-xl border border-gray-200 bg-white text-gray-700 transition hover:bg-gray-50"
+              className="flex h-10 w-10 items-center justify-center rounded-xl border border-[#DCC8B6] bg-white text-[#4A2E18] transition hover:bg-[#F5ECE3]"
               aria-label={mobileOpen ? "Close menu" : "Open menu"}
             >
               <svg
@@ -166,8 +169,8 @@ const Navbar = () => {
                   onClick={() => setMobileOpen(false)}
                   className={`block rounded-xl px-4 py-3 font-medium transition-colors duration-200 ${
                     pathname === link.href
-                      ? "bg-emerald-50 text-emerald-600"
-                      : "text-gray-700 hover:bg-gray-50 hover:text-emerald-600"
+                      ? "bg-[#F5ECE3] font-bold text-[#8B5A2B]"
+                      : "text-[#5A381E] hover:bg-[#F5ECE3] hover:text-[#8B5A2B]"
                   }`}
                 >
                   {link.label}
@@ -175,16 +178,16 @@ const Navbar = () => {
               </li>
             ))}
 
-            <div className="my-2 border-t border-gray-100" />
+            <div className="my-2 border-t border-[#EADBCE]" />
 
             <li>
-              <button className="w-full rounded-xl px-4 py-3 text-left font-medium hover:bg-gray-50">
+              <button className="w-full rounded-xl px-4 py-3 text-left font-medium text-[#4A2E18] hover:bg-[#F5ECE3]">
                 Sign In
               </button>
             </li>
 
             <li>
-              <button className="w-full rounded-xl bg-emerald-600 px-4 py-3 text-left font-semibold text-white hover:bg-emerald-700">
+              <button className="w-full rounded-xl bg-[#8B5A2B] px-4 py-3 text-left font-semibold text-white hover:bg-[#6F4420]">
                 Sign Up
               </button>
             </li>

@@ -518,5 +518,31 @@
     "tags": ["Horror", "Non-Fiction"],
     "publisher": "Hippocampus Press",
     "yearOfPublishing": 2010
+  },
+  {
+    "bookId": 41,
+    "bookName": "The Idiot",
+    "author": "Fyodor Dostoevsky",
+    "image": "https://covers.openlibrary.org/b/isbn/9780140447927-L.jpg",
+    "review": "Prince Myshkin, an innocent and compassionate man whose sheer goodness is mistaken for idiocy, enters the cynical high society of Saint Petersburg with tragic consequences.",
+    "totalPages": 656,
+    "rating": 4.7,
+    "category": "Classic",
+    "tags": ["Psychological", "Philosophical"],
+    "publisher": "The Russian Messenger",
+    "yearOfPublishing": 1869
+  },
+  {
+    "bookId": 42,
+    "bookName": "The Rebel",
+    "author": "Albert Camus",
+    "image": "https://covers.openlibrary.org/b/isbn/9780679733843-L.jpg",
+    "review": "A landmark philosophical treatise dissecting the historical and metaphysical impulses toward human rebellion, warning against revolutions that succumb to ideological tyranny.",
+    "totalPages": 320,
+    "rating": 4.5,
+    "category": "Philosophy",
+    "tags": ["Political", "Existential"],
+    "publisher": "Gallimard",
+    "yearOfPublishing": 1951
   }
 ]
