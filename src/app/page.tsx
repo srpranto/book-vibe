@@ -1,7 +1,8 @@
+import type { ReactElement } from "react";
 import Banner from "@/components/homepage/Banner";
 import Books from "@/components/homepage/Books";
 
-const Homepage = () => {
+const Homepage = (): ReactElement => {
   return (
     <main>
       <Banner />

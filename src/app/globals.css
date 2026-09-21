@@ -1,24 +1,16 @@
 @import "tailwindcss";
-@plugin "daisyui";
 
-:root {
-  --font-sans: "Helvetica Neue", "Helvetica", "Arial", sans-serif;
-  --font-mono: "SFMono-Regular", "Consolas", "Liberation Mono", monospace;
+@theme {
+  --font-sans: var(--font-quicksand), ui-sans-serif, system-ui, sans-serif;
 }
 
 html {
-  font-family: var(--font-sans);
   background-color: #faf7f2;
   color: #241812;
   scroll-behavior: smooth;
 }
 
 body {
-  font-family: var(--font-sans);
   background-color: #faf7f2;
   color: #241812;
-}
-
-* {
-  font-family: inherit;
 }
