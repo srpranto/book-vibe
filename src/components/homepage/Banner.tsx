@@ -1,4 +1,5 @@
 import Image from "next/image";
+import Link from "next/link";
 import bannerImg from "@/assets/hero.jpg";
 
 const Banner = () => {
@@ -28,13 +29,19 @@ const Banner = () => {
               </p>
 
               <div className="flex flex-wrap items-center gap-4">
-                <button className="rounded-xl bg-emerald-600 px-6 py-3 font-semibold text-white shadow-lg shadow-emerald-600/20 transition duration-300 hover:-translate-y-0.5 hover:bg-emerald-700">
+                <Link
+                  href="/listed-books"
+                  className="rounded-xl bg-emerald-600 px-6 py-3 font-semibold text-white shadow-lg shadow-emerald-600/20 transition duration-300 hover:-translate-y-0.5 hover:bg-emerald-700"
+                >
                   Visit The List →
-                </button>
+                </Link>
 
-                <button className="rounded-xl border border-gray-200 bg-white px-6 py-3 font-semibold text-gray-700 transition duration-300 hover:border-emerald-300 hover:text-emerald-600">
+                <Link
+                  href="#books"
+                  className="rounded-xl border border-gray-200 bg-white px-6 py-3 font-semibold text-gray-700 transition duration-300 hover:border-emerald-300 hover:text-emerald-600"
+                >
                   Explore Books
-                </button>
+                </Link>
               </div>
 
               {/* Small stats */}
