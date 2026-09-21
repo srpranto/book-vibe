@@ -188,7 +188,7 @@ const AllBooksView = ({ initialBooks }: AllBooksViewProps): ReactElement => {
     >
       <div className="mb-10 text-center md:text-left">
         <span className="mb-3 inline-flex items-center gap-1.5 rounded-full bg-[#F5ECE3] px-4 py-1.5 text-xs font-semibold text-[#7A4B22] ring-1 ring-[#E8D5C4] md:text-sm">
-          ☕ The Complete Collection
+          ☕ Books to Stay With
         </span>
 
         <h1 className="max-w-2xl text-3xl font-extrabold tracking-tight text-[#241812] md:text-5xl">
@@ -196,8 +196,9 @@ const AllBooksView = ({ initialBooks }: AllBooksViewProps): ReactElement => {
         </h1>
 
         <p className="mt-3 max-w-2xl text-sm leading-6 text-[#4A3528] md:text-base">
-          Explore our curated catalog of {initialBooks.length} existential and
-          philosophical classics, timeless essays, and literary masterpieces.
+          Some books are read once and forgotten. Some stay somewhere inside you
+          for a little longer. Here are {initialBooks.length} books worth
+          spending some quiet time with.
         </p>
       </div>
 
@@ -221,7 +222,7 @@ const AllBooksView = ({ initialBooks }: AllBooksViewProps): ReactElement => {
               <button
                 type="button"
                 onClick={() => setGenreOpen((prev) => !prev)}
-                className="inline-flex items-center gap-2 rounded-xl border border-[#DCC8B6] bg-white px-4 py-2 text-xs font-semibold text-[#4A2E18] shadow-xs transition duration-200 hover:border-[#8B5A2B] hover:bg-[#F5ECE3]/50 focus:border-[#8B5A2B] focus:outline-none focus:ring-2 focus:ring-[#8B5A2B]/20 md:text-sm"
+                className="inline-flex items-center gap-2 rounded-xl border border-[#DCC8B6] bg-white px-4 py-2 text-xs font-semibold text-[#4A2E18] shadow-xs transition duration-200 hover:border-[#8B5A2B] hover:bg-[#F5ECE3]/50 focus:border-[#8B5A2B] focus:outline-hidden focus:ring-2 focus:ring-[#8B5A2B]/20 md:text-sm"
                 aria-haspopup="listbox"
                 aria-expanded={genreOpen}
               >
@@ -396,7 +397,7 @@ const AllBooksView = ({ initialBooks }: AllBooksViewProps): ReactElement => {
               placeholder="Search by title, author, tag..."
               value={searchQuery}
               onChange={(e) => setSearchQuery(e.target.value)}
-              className="w-full rounded-xl border border-[#DCC8B6] bg-white py-2.5 pl-10 pr-9 text-sm font-semibold text-[#241812] placeholder-[#735D50] shadow-xs transition duration-200 focus:border-[#8B5A2B] focus:outline-none focus:ring-2 focus:ring-[#8B5A2B]/20"
+              className="w-full rounded-xl border border-[#DCC8B6] bg-white py-2.5 pl-10 pr-9 text-sm font-semibold text-[#241812] placeholder-[#735D50] shadow-xs transition duration-200 focus:border-[#8B5A2B] focus:outline-hidden focus:ring-2 focus:ring-[#8B5A2B]/20"
             />
 
             {searchQuery && (
@@ -425,7 +426,7 @@ const AllBooksView = ({ initialBooks }: AllBooksViewProps): ReactElement => {
             <button
               type="button"
               onClick={() => setSortOpen((prev) => !prev)}
-              className="flex w-full items-center justify-between gap-2.5 rounded-xl border border-[#DCC8B6] bg-white px-4 py-2.5 text-sm font-semibold text-[#241812] shadow-xs transition duration-200 hover:border-[#8B5A2B] hover:bg-[#F5ECE3]/40 focus:border-[#8B5A2B] focus:outline-none focus:ring-2 focus:ring-[#8B5A2B]/20 sm:w-auto"
+              className="flex w-full items-center justify-between gap-2.5 rounded-xl border border-[#DCC8B6] bg-white px-4 py-2.5 text-sm font-semibold text-[#241812] shadow-xs transition duration-200 hover:border-[#8B5A2B] hover:bg-[#F5ECE3]/40 focus:border-[#8B5A2B] focus:outline-hidden focus:ring-2 focus:ring-[#8B5A2B]/20 sm:w-auto"
               aria-haspopup="listbox"
               aria-expanded={sortOpen}
             >

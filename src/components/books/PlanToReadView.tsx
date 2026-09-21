@@ -237,8 +237,7 @@ const PlanToReadView = ({ allBooks }: PlanToReadViewProps): ReactElement => {
     <div className="container mx-auto max-w-5xl pb-32">
       <div className="mb-8 text-center md:text-left">
         <span className="mb-3 inline-flex items-center gap-1.5 rounded-full bg-[#F5ECE3] px-4 py-1.5 text-xs font-semibold text-[#7A4B22] ring-1 ring-[#E8D5C4] md:text-sm">
-          <BookMarked className="h-3.5 w-3.5" />
-          Personal Reading Shelf
+          <BookMarked className="h-3.5 w-3.5" />A Little Shelf for Later
         </span>
 
         <h1 className="max-w-2xl text-3xl font-extrabold tracking-tight text-[#241812] md:text-5xl">
@@ -246,11 +245,8 @@ const PlanToReadView = ({ allBooks }: PlanToReadViewProps): ReactElement => {
         </h1>
 
         <p className="mt-3 max-w-2xl text-sm leading-6 text-[#4A3528] md:text-base">
-          Track, organize, and manage your reading list. When you mark books as{" "}
-          <span className="font-semibold text-[#8B5A2B]">Reading</span>,{" "}
-          <span className="font-semibold text-[#8B5A2B]">Plan to Read</span>, or{" "}
-          <span className="font-semibold text-[#8B5A2B]">Completed</span>, they
-          appear here in your reading shelf with quick status verification.
+          Some books are not meant for today. Keep the ones you want to come
+          back to here, and read them when the time feels right.
         </p>
       </div>
 
@@ -583,13 +579,11 @@ const PlanToReadView = ({ allBooks }: PlanToReadViewProps): ReactElement => {
             <BookMarked className="h-8 w-8" />
           </div>
           <h2 className="text-xl font-extrabold text-[#241812]">
-            Your reading shelf is empty
+            There is nothing here yet
           </h2>
           <p className="mx-auto mt-2 max-w-md text-sm font-medium text-[#4A3528]">
-            Click <strong className="text-[#8B5A2B]">&quot;Read&quot;</strong>{" "}
-            on any book card to start reading, or choose{" "}
-            <strong className="text-[#8B5A2B]">&quot;Plan to Read&quot;</strong>{" "}
-            to line up your next literary adventure.
+            Maybe the book you are looking for is still waiting for you. Go back
+            to the library and choose one whenever you feel like it.
           </p>
           <div className="mt-6 flex flex-wrap items-center justify-center gap-3">
             <Link
@@ -597,13 +591,13 @@ const PlanToReadView = ({ allBooks }: PlanToReadViewProps): ReactElement => {
               className="inline-flex items-center gap-2 rounded-xl bg-[#8B5A2B] px-6 py-3 text-sm font-bold text-white shadow-md shadow-[#8B5A2B]/20 transition-all duration-200 hover:bg-[#6F4420] hover:shadow-lg active:scale-[0.98]"
             >
               <Library className="h-4 w-4" />
-              Browse the Library
+              Go to the Library
             </Link>
             <Link
               href="/"
               className="inline-flex items-center gap-2 rounded-xl border border-[#DCC8B6] bg-white px-5 py-3 text-sm font-semibold text-[#4A2E18] shadow-xs transition hover:border-[#8B5A2B] hover:bg-[#F5ECE3]"
             >
-              Back to Home
+              Back Home
             </Link>
           </div>
         </div>

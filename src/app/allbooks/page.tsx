@@ -6,7 +6,7 @@ import { getAllBooks } from "@/lib/books";
 export const metadata: Metadata = {
   title: "All Books | Book Vibe Library",
   description:
-    "Explore our complete curated catalog of existential and philosophical classics, timeless essays, and literary masterpieces.",
+    "Some books are read once and forgotten. Some stay somewhere inside you for a little longer. Here are 100 books worth spending some quiet time with.",
 };
 
 const AllBooksPage = (): ReactElement => {
