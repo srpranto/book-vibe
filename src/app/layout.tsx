@@ -10,6 +10,14 @@ export const metadata: Metadata = {
   title: "Book Vibe — Coffee & Books",
   description:
     "A cozy sanctuary for book discovery, classic literature, and coffee lovers",
+  icons: {
+    icon: [
+      { url: "/icon.svg", type: "image/svg+xml" },
+      { url: "/favicon.ico" },
+    ],
+    shortcut: "/icon.svg",
+    apple: "/icon.svg",
+  },
 };
 
 export default function RootLayout({ children }: { children: ReactNode }) {
@@ -40,12 +48,12 @@ export default function RootLayout({ children }: { children: ReactNode }) {
                   </span>
                   Book <span className="text-white">Vibe</span>
                 </Link>
-                <p className="mt-3 max-w-sm text-sm leading-6 text-[#B5A193]">
+                <p className="mt-3 max-w-sm text-sm leading-6 text-[#D8C7BA]">
                   A cozy sanctuary for passionate readers and coffee thinkers.
                   Grab a warm cup, sink into a comfortable armchair, and
                   discover your next literary companion.
                 </p>
-                <div className="mt-4 flex items-center gap-2 text-xs text-[#8E796C]">
+                <div className="mt-4 flex items-center gap-2 text-xs text-[#C4B2A5]">
                   <span>☕ Fresh Brew</span>
                   <span>•</span>
                   <span>📖 Classic Pages</span>
@@ -59,7 +67,7 @@ export default function RootLayout({ children }: { children: ReactNode }) {
                 <h4 className="text-xs font-bold uppercase tracking-wider text-[#D4A373]">
                   Navigation
                 </h4>
-                <ul className="mt-3 space-y-2 text-sm text-[#B5A193]">
+                <ul className="mt-3 space-y-2 text-sm text-[#D8C7BA]">
                   <li>
                     <Link href="/" className="transition hover:text-white">
                       Home
@@ -67,10 +75,10 @@ export default function RootLayout({ children }: { children: ReactNode }) {
                   </li>
                   <li>
                     <Link
-                      href="/listed-books"
+                      href="/allbooks"
                       className="transition hover:text-white"
                     >
-                      Listed Books (42)
+                      All Books (42)
                     </Link>
                   </li>
                   <li>
@@ -89,18 +97,18 @@ export default function RootLayout({ children }: { children: ReactNode }) {
                 <h4 className="text-xs font-bold uppercase tracking-wider text-[#D4A373]">
                   Reading Room
                 </h4>
-                <p className="mt-3 text-sm text-[#B5A193]">
+                <p className="mt-3 text-sm text-[#D8C7BA]">
                   Open 24/7 for late-night thinkers and early morning espresso
                   readers.
                 </p>
-                <p className="mt-2 text-xs italic text-[#8E796C]">
+                <p className="mt-2 text-xs italic text-[#C4B2A5]">
                   &ldquo;A cup of coffee and a great book is the shortest escape
                   to another world.&rdquo;
                 </p>
               </div>
             </div>
 
-            <div className="mt-10 border-t border-[#332219] pt-6 text-center text-xs text-[#8E796C]">
+            <div className="mt-10 border-t border-[#332219] pt-6 text-center text-xs text-[#C4B2A5]">
               © {new Date().getFullYear()} Book Vibe. Crafted with ☕ and warm
               stories.
             </div>

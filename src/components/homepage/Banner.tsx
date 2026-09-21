@@ -30,7 +30,7 @@ const Banner = () => {
             </div>
 
             {/* Main Headline */}
-            <h1 className="text-4xl font-extrabold leading-[1.15] tracking-tight text-[#241812] sm:text-5xl lg:text-6xl">
+            <h1 className="text-4xl font-extrabold leading-tight tracking-tight text-[#241812] sm:text-5xl lg:text-6xl">
               Books to freshen up{" "}
               <span className="bg-linear-to-r from-[#8B5A2B] via-[#B87333] to-[#6F4420] bg-clip-text text-transparent">
                 your bookshelf.
@@ -38,7 +38,7 @@ const Banner = () => {
             </h1>
 
             {/* Description */}
-            <p className="mx-auto max-w-2xl text-base leading-relaxed text-[#6B5141] md:text-lg">
+            <p className="mx-auto max-w-2xl text-base font-medium leading-relaxed text-[#3E2D22] md:text-lg">
               Sink into a warm armchair with a fresh brew. Explore our curated
               collection of 42 timeless literary and philosophical masterworks
               crafted to inspire and stay with you.
@@ -47,10 +47,10 @@ const Banner = () => {
             {/* Call to Actions */}
             <div className="flex flex-wrap items-center justify-center gap-4 pt-2">
               <Link
-                href="/listed-books"
+                href="/allbooks"
                 className="group inline-flex items-center gap-2.5 rounded-xl bg-[#8B5A2B] px-8 py-4 text-base font-bold text-white shadow-lg shadow-[#8B5A2B]/25 transition duration-300 hover:-translate-y-0.5 hover:bg-[#6F4420] hover:shadow-xl hover:shadow-[#8B5A2B]/30"
               >
-                <span>Visit The List</span>
+                <span>Browse All Books</span>
                 <span className="transition-transform duration-200 group-hover:translate-x-1">
                   →
                 </span>
@@ -70,7 +70,7 @@ const Banner = () => {
               <div className="inline-flex flex-wrap items-center justify-center gap-6 rounded-2xl border border-[#EADBCE]/80 bg-white/70 px-8 py-4 shadow-xs backdrop-blur-md sm:gap-12">
                 <div>
                   <p className="text-2xl font-extrabold text-[#241812]">42</p>
-                  <p className="text-xs font-medium uppercase tracking-wider text-[#7A6A60]">
+                  <p className="text-xs font-semibold uppercase tracking-wider text-[#5C4537]">
                     Classic Books
                   </p>
                 </div>
@@ -79,7 +79,7 @@ const Banner = () => {
 
                 <div>
                   <p className="text-2xl font-extrabold text-[#241812]">25+</p>
-                  <p className="text-xs font-medium uppercase tracking-wider text-[#7A6A60]">
+                  <p className="text-xs font-semibold uppercase tracking-wider text-[#5C4537]">
                     Master Authors
                   </p>
                 </div>
@@ -93,7 +93,7 @@ const Banner = () => {
                     </p>
                     <span className="text-sm text-[#E5A93C]">★</span>
                   </div>
-                  <p className="text-xs font-medium uppercase tracking-wider text-[#7A6A60]">
+                  <p className="text-xs font-semibold uppercase tracking-wider text-[#5C4537]">
                     Reader Rating
                   </p>
                 </div>

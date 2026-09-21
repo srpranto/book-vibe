@@ -3,10 +3,10 @@ import Books from "@/components/homepage/Books";
 
 const Homepage = () => {
   return (
-    <div>
+    <main>
       <Banner />
       <Books />
-    </div>
+    </main>
   );
 };
 

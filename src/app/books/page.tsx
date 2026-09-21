@@ -1,7 +1,2 @@
-import ListedBooksPage from "@/app/listed-books/page";
-
-const BooksPage = () => {
-  return <ListedBooksPage />;
-};
-
-export default BooksPage;
+import AllBooksPage from "@/app/allbooks/page";
+export default AllBooksPage;

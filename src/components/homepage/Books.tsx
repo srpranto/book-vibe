@@ -32,7 +32,7 @@ const Books = () => {
               Collection
             </h2>
 
-            <p className="mt-3 max-w-xl text-sm leading-6 text-[#6B5141] md:text-base">
+            <p className="mt-3 max-w-xl text-sm font-medium leading-6 text-[#3E2D22] md:text-base">
               Discover 9 of our most loved, highest-rated literary masterpieces.
               Pour a fresh brew and explore the books that captivate our
               readers.
@@ -40,7 +40,7 @@ const Books = () => {
           </div>
 
           <Link
-            href="/listed-books"
+            href="/allbooks"
             className="inline-flex items-center gap-1.5 text-sm font-semibold text-[#8B5A2B] transition hover:text-[#6F4420] md:self-end"
           >
             View All ({books.length}) →
@@ -57,10 +57,10 @@ const Books = () => {
         {/* View All Action */}
         <div className="mt-12 text-center">
           <Link
-            href="/listed-books"
+            href="/allbooks"
             className="inline-flex items-center justify-center rounded-xl bg-[#8B5A2B] px-8 py-3.5 text-sm font-bold text-white shadow-md shadow-[#8B5A2B]/20 transition duration-300 hover:-translate-y-0.5 hover:bg-[#6F4420] hover:shadow-lg"
           >
-            Explore All {books.length} Listed Books →
+            Explore All {books.length} Books in Library →
           </Link>
         </div>
       </div>
