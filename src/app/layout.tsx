@@ -12,11 +12,12 @@ export const metadata: Metadata = {
     "A cozy sanctuary for book discovery, classic literature, and coffee lovers",
   icons: {
     icon: [
+      { url: "/favicon.ico", sizes: "any" },
+      { url: "/icon.png", type: "image/png", sizes: "32x32" },
       { url: "/icon.svg", type: "image/svg+xml" },
-      { url: "/favicon.ico" },
     ],
-    shortcut: "/icon.svg",
-    apple: "/icon.svg",
+    shortcut: "/favicon.ico",
+    apple: "/apple-icon.png",
   },
 };
 
