@@ -295,14 +295,14 @@ export function ReviewsJournalView({
         </div>
 
         {/* Search Input */}
-        <div className="relative w-full sm:w-72">
-          <Search className="absolute left-3.5 top-1/2 -translate-y-1/2 h-4 w-4 text-[#8B6E5A]" />
+        <div className="relative w-full sm:w-56 md:w-64 shrink-0">
+          <Search className="absolute left-2.5 top-1/2 -translate-y-1/2 h-3.5 w-3.5 text-[#8B6E5A]" />
           <input
             type="text"
             value={searchQuery}
             onChange={(e) => setSearchQuery(e.target.value)}
             placeholder="Search reviews or quotes..."
-            className="w-full rounded-xl border border-[#DCC8B6] bg-white py-2 pl-10 pr-4 text-xs font-medium text-foreground placeholder-[#8B6E5A]/70 shadow-2xs focus:border-primary focus:outline-hidden"
+            className="h-8.5 w-full rounded-xl border border-[#DCC8B6] bg-white pl-8 pr-4 text-xs font-medium text-foreground placeholder-[#8B6E5A]/70 placeholder:text-[11px] shadow-2xs focus:border-primary focus:outline-hidden"
           />
         </div>
       </div>

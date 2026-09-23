@@ -416,9 +416,9 @@ const PlanToReadView = ({ allBooks }: PlanToReadViewProps): ReactElement => {
           </div>
 
           {/* Control Bar: Tabs, Search, View Mode */}
-          <div className="mb-6 flex flex-col gap-4 border-b border-border pb-6 lg:flex-row lg:items-center lg:justify-between">
-            {/* Shelf Tabs (including Dropped!) */}
-            <div className="flex items-center gap-1.5 overflow-x-auto pb-2 scrollbar-none w-full lg:w-auto -mx-1 px-1">
+          <div className="mb-6 flex flex-col gap-3.5 border-b border-border pb-5">
+            {/* Shelf Tabs (including Dropped & Reviewed) */}
+            <div className="flex items-center gap-1.5 overflow-x-auto pb-1.5 pt-0.5 scrollbar-none w-full -mx-1 px-1">
               {(
                 [
                   { id: "all", label: "All", count: counts.all, emoji: "📚" },
@@ -466,18 +466,20 @@ const PlanToReadView = ({ allBooks }: PlanToReadViewProps): ReactElement => {
                     key={tab.id}
                     type="button"
                     onClick={() => handleTabSelect(tab.id)}
-                    className={`shrink-0 flex items-center gap-2 whitespace-nowrap rounded-xl px-3.5 py-2 text-xs font-bold transition-colors ${
+                    className={`shrink-0 inline-flex items-center gap-1.5 h-8.5 whitespace-nowrap rounded-xl px-3 text-xs font-bold transition-all select-none ${
                       isSelected
                         ? "bg-primary text-white shadow-xs"
                         : "border border-border bg-white text-[#5B3315] hover:border-primary hover:bg-muted"
                     }`}
                   >
-                    <span>{tab.emoji}</span>
-                    <span>{tab.label}</span>
+                    <span className="text-sm shrink-0 leading-none">
+                      {tab.emoji}
+                    </span>
+                    <span className="leading-none">{tab.label}</span>
                     <span
-                      className={`rounded-full px-1.5 py-0.2 text-[10px] ${
+                      className={`inline-flex items-center justify-center min-w-4.5 h-4.5 px-1 rounded-full text-[10px] font-extrabold leading-none ${
                         isSelected
-                          ? "bg-white/20 text-white font-extrabold"
+                          ? "bg-white/20 text-white"
                           : "bg-muted text-[#7A4B22]"
                       }`}
                     >
@@ -488,66 +490,75 @@ const PlanToReadView = ({ allBooks }: PlanToReadViewProps): ReactElement => {
               })}
             </div>
 
-            {/* Search & View Modes */}
-            <div className="flex items-center gap-2.5 sm:gap-3 w-full sm:w-auto">
-              <div className="relative flex-1 sm:w-64">
-                <Search className="pointer-events-none absolute left-3 top-1/2 h-3.5 w-3.5 -translate-y-1/2 text-[#8B6E5A]" />
-                <input
-                  type="text"
-                  value={searchQuery}
-                  onChange={(e) => handleSearchChange(e.target.value)}
-                  placeholder="Filter my shelf..."
-                  className="w-full rounded-xl border border-border bg-white py-2 pl-9 pr-8 text-xs font-medium text-foreground placeholder-[#8B6E5A] shadow-2xs focus:border-primary focus:outline-hidden"
-                />
-                {searchQuery && (
+            {/* Filter Toolbar: Active Info & Compact Search + View Modes */}
+            <div className="flex items-center justify-between gap-2.5 pt-0.5">
+              <span className="text-[11px] font-bold text-[#8B6E5A] truncate">
+                Showing {filteredBooks.length}{" "}
+                {filteredBooks.length === 1 ? "book" : "books"}
+                {searchQuery ? ` matching "${searchQuery}"` : ""}
+              </span>
+
+              {/* Search & View Modes - Extra Compact */}
+              <div className="flex items-center gap-2 shrink-0">
+                <div className="relative w-32 min-[420px]:w-36 sm:w-44">
+                  <Search className="pointer-events-none absolute left-2.5 top-1/2 h-3.5 w-3.5 -translate-y-1/2 text-[#8B6E5A]" />
+                  <input
+                    type="text"
+                    value={searchQuery}
+                    onChange={(e) => handleSearchChange(e.target.value)}
+                    placeholder="Filter..."
+                    className="h-8 w-full rounded-xl border border-border bg-white pl-7.5 pr-6 text-xs font-medium text-foreground placeholder-[#8B6E5A] placeholder:text-[11px] shadow-2xs focus:border-primary focus:outline-hidden"
+                  />
+                  {searchQuery && (
+                    <button
+                      type="button"
+                      onClick={() => handleSearchChange("")}
+                      className="absolute right-2 top-1/2 -translate-y-1/2 text-xs text-[#8B6E5A] hover:text-foreground"
+                    >
+                      ✕
+                    </button>
+                  )}
+                </div>
+
+                {/* View Mode Toggle */}
+                <div className="flex items-center rounded-xl border border-border bg-white p-0.5 shadow-2xs">
                   <button
                     type="button"
-                    onClick={() => handleSearchChange("")}
-                    className="absolute right-2.5 top-1/2 -translate-y-1/2 text-xs text-[#8B6E5A] hover:text-foreground"
+                    onClick={() => setViewMode("bookshelf")}
+                    className={`flex h-7 w-7 items-center justify-center rounded-lg transition-colors ${
+                      viewMode === "bookshelf"
+                        ? "bg-primary text-white"
+                        : "text-[#8B6E5A] hover:bg-muted"
+                    }`}
+                    title="Tactile Bookshelf view"
                   >
-                    ✕
+                    <Columns className="h-3.5 w-3.5" />
                   </button>
-                )}
-              </div>
-
-              {/* View Mode Toggle */}
-              <div className="flex items-center rounded-xl border border-border bg-white p-1 shadow-2xs">
-                <button
-                  type="button"
-                  onClick={() => setViewMode("bookshelf")}
-                  className={`flex h-8 w-8 items-center justify-center rounded-lg transition-colors ${
-                    viewMode === "bookshelf"
-                      ? "bg-primary text-white"
-                      : "text-[#8B6E5A] hover:bg-muted"
-                  }`}
-                  title="Tactile Bookshelf view"
-                >
-                  <Columns className="h-4 w-4" />
-                </button>
-                <button
-                  type="button"
-                  onClick={() => setViewMode("grid")}
-                  className={`flex h-8 w-8 items-center justify-center rounded-lg transition-colors ${
-                    viewMode === "grid"
-                      ? "bg-primary text-white"
-                      : "text-[#8B6E5A] hover:bg-muted"
-                  }`}
-                  title="Grid view"
-                >
-                  <LayoutGrid className="h-4 w-4" />
-                </button>
-                <button
-                  type="button"
-                  onClick={() => setViewMode("list")}
-                  className={`flex h-8 w-8 items-center justify-center rounded-lg transition-colors ${
-                    viewMode === "list"
-                      ? "bg-primary text-white"
-                      : "text-[#8B6E5A] hover:bg-muted"
-                  }`}
-                  title="Compact list view"
-                >
-                  <List className="h-4 w-4" />
-                </button>
+                  <button
+                    type="button"
+                    onClick={() => setViewMode("grid")}
+                    className={`flex h-7 w-7 items-center justify-center rounded-lg transition-colors ${
+                      viewMode === "grid"
+                        ? "bg-primary text-white"
+                        : "text-[#8B6E5A] hover:bg-muted"
+                    }`}
+                    title="Grid view"
+                  >
+                    <LayoutGrid className="h-3.5 w-3.5" />
+                  </button>
+                  <button
+                    type="button"
+                    onClick={() => setViewMode("list")}
+                    className={`flex h-7 w-7 items-center justify-center rounded-lg transition-colors ${
+                      viewMode === "list"
+                        ? "bg-primary text-white"
+                        : "text-[#8B6E5A] hover:bg-muted"
+                    }`}
+                    title="Compact list view"
+                  >
+                    <List className="h-3.5 w-3.5" />
+                  </button>
+                </div>
               </div>
             </div>
           </div>
