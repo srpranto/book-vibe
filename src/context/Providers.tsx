@@ -1,19 +1,21 @@
 "use client";
 
 import type { ReactElement, ReactNode } from "react";
-import { WishlistProvider } from "./WishlistContext";
 import { ReadingStatusProvider } from "./ReadingStatusContext";
 import { MarginaliaProvider } from "./MarginaliaContext";
+import { CustomBooksProvider } from "./CustomBooksContext";
+import { FeedbackProvider } from "./FeedbackContext";
 
 export function Providers({
   children,
 }: Readonly<{ children: ReactNode }>): ReactElement {
   return (
-    <WishlistProvider>
+    <FeedbackProvider>
       <ReadingStatusProvider>
-        <MarginaliaProvider>{children}</MarginaliaProvider>
+        <CustomBooksProvider>
+          <MarginaliaProvider>{children}</MarginaliaProvider>
+        </CustomBooksProvider>
       </ReadingStatusProvider>
-    </WishlistProvider>
+    </FeedbackProvider>
   );
 }
-

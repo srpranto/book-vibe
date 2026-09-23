@@ -1,24 +1,54 @@
-import booksData from "../../public/booksData.json";
 import type { Book } from "@/types/book.type";
+import {
+  OPEN_LIBRARY_FEATURED_BOOKS,
+  convertOpenLibraryBookToBook,
+  getDeterministicWorkBookId,
+} from "./openLibrary";
 
-const books: Book[] = booksData;
+const books: Book[] = OPEN_LIBRARY_FEATURED_BOOKS.map(
+  convertOpenLibraryBookToBook,
+);
 
 export function getAllBooks(): Book[] {
   return books;
 }
 
 export function getBookById(id: string | number): Book | undefined {
-  return books.find((b) => String(b.bookId) === String(id));
-}
+  if (id === undefined || id === null) return undefined;
+  const strId = String(id).trim();
 
-export function getRelatedBooks(book: Book, limit = 3): Book[] {
-  const sameCat = books.filter(
-    (b) => b.bookId !== book.bookId && b.category === book.category,
-  );
-  if (sameCat.length >= limit) return sameCat.slice(0, limit);
+  // 1. Direct match by numeric bookId
+  const byId = books.find((b) => String(b.bookId) === strId);
+  if (byId) return byId;
 
-  const others = books.filter(
-    (b) => b.bookId !== book.bookId && b.category !== book.category,
-  );
-  return [...sameCat, ...others].slice(0, limit);
+  // 2. Match by workId or Open Library key (/works/OL...)
+  const cleanSearch = strId.replace("/works/", "");
+  const byOlKey = books.find((b) => {
+    if (b.workId === cleanSearch) return true;
+    if (!b.openLibraryKey) return false;
+    const cleanKey = b.openLibraryKey.replace("/works/", "");
+    return (
+      b.openLibraryKey === strId ||
+      b.openLibraryKey === `/works/${cleanSearch}` ||
+      cleanKey === cleanSearch
+    );
+  });
+  if (byOlKey) return byOlKey;
+
+  // 3. Match by deterministic hash
+  const hashId = getDeterministicWorkBookId(strId);
+  const byHash = books.find((b) => b.bookId === hashId);
+  if (byHash) return byHash;
+
+  // 4. 1-based index fallback for legacy routes
+  const numericVal = Number(strId);
+  if (
+    !Number.isNaN(numericVal) &&
+    numericVal >= 1 &&
+    numericVal <= books.length
+  ) {
+    return books[numericVal - 1];
+  }
+
+  return undefined;
 }

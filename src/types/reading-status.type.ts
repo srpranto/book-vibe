@@ -6,7 +6,7 @@ export type ReadingStatusValue =
   | "dropped"
   | "re_reading";
 
-export interface ReadingStatusOption {
+interface ReadingStatusOption {
   value: ReadingStatusValue;
   label: string;
   emoji: string;
@@ -37,8 +37,8 @@ export const READING_STATUS_OPTIONS: ReadingStatusOption[] = [
     label: "Plan to Read",
     emoji: "🔖",
     color: "bg-[#FAF6F0]",
-    textColor: "text-[#8B5A2B]",
-    borderColor: "border-[#D4A373]",
+    textColor: "text-primary",
+    borderColor: "border-secondary",
   },
   {
     value: "on_hold",
@@ -51,10 +51,10 @@ export const READING_STATUS_OPTIONS: ReadingStatusOption[] = [
   {
     value: "dropped",
     label: "Dropped",
-    emoji: "❌",
-    color: "bg-red-50",
-    textColor: "text-red-600",
-    borderColor: "border-red-200",
+    emoji: "🚫",
+    color: "bg-rose-50",
+    textColor: "text-rose-700",
+    borderColor: "border-rose-200",
   },
   {
     value: "re_reading",

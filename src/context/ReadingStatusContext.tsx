@@ -12,15 +12,30 @@ import {
   READING_STATUS_OPTIONS,
   type ReadingStatusValue,
 } from "@/types/reading-status.type";
+import { useFeedback } from "@/context/FeedbackContext";
+import { getDeterministicWorkBookId } from "@/lib/openLibrary";
 
 const STORAGE_KEY = "book-vibe-reading-status";
 
 type StatusMap = Record<number, ReadingStatusValue>;
 
+export function normalizeBookId(val: number | string): number {
+  if (typeof val === "number") return val;
+  const trimmed = val.trim();
+  const num = Number(trimmed);
+  if (!Number.isNaN(num) && /^\d+$/.test(trimmed)) {
+    return num;
+  }
+  return getDeterministicWorkBookId(trimmed);
+}
+
 interface ReadingStatusContextType {
   statusMap: StatusMap;
-  getStatus: (bookId: number) => ReadingStatusValue | null;
-  setStatus: (bookId: number, status: ReadingStatusValue | null) => void;
+  getStatus: (bookId: number | string) => ReadingStatusValue | null;
+  setStatus: (
+    bookId: number | string,
+    status: ReadingStatusValue | null,
+  ) => void;
   isMounted: boolean;
 }
 
@@ -68,6 +83,7 @@ export function ReadingStatusProvider({
 }>): ReactElement {
   const [statusMap, setStatusMap] = useState<StatusMap>({});
   const [isMounted, setIsMounted] = useState<boolean>(false);
+  const { notify } = useFeedback();
 
   useEffect(() => {
     try {
@@ -79,22 +95,50 @@ export function ReadingStatusProvider({
         });
       }
     } catch {
-      return;
+      queueMicrotask(() => {
+        setStatusMap({});
+      });
     }
     queueMicrotask(() => {
       setIsMounted(true);
     });
+
+    const handleStorageChange = (e: StorageEvent): void => {
+      if (e.key === STORAGE_KEY) {
+        if (!e.newValue) {
+          setStatusMap({});
+          return;
+        }
+        setStatusMap(parseStatusMap(e.newValue));
+      }
+    };
+
+    window.addEventListener("storage", handleStorageChange);
+    return () => {
+      window.removeEventListener("storage", handleStorageChange);
+    };
   }, []);
 
   const setStatus = useCallback(
-    (bookId: number, status: ReadingStatusValue | null): void => {
+    (bookIdOrKey: number | string, status: ReadingStatusValue | null): void => {
+      const bookId = normalizeBookId(bookIdOrKey);
+
       setStatusMap((prev) => {
-        const next: StatusMap = { ...prev };
+        let currentDiskMap: StatusMap = {};
+        try {
+          const raw = localStorage.getItem(STORAGE_KEY);
+          if (raw) currentDiskMap = parseStatusMap(raw);
+        } catch {
+          currentDiskMap = prev;
+        }
+
+        const next: StatusMap = { ...currentDiskMap };
         if (status === null) {
           delete next[bookId];
         } else {
           next[bookId] = status;
         }
+
         try {
           localStorage.setItem(STORAGE_KEY, JSON.stringify(next));
         } catch {
@@ -102,12 +146,23 @@ export function ReadingStatusProvider({
         }
         return next;
       });
+
+      if (status) {
+        const option = READING_STATUS_OPTIONS.find(
+          (opt) => opt.value === status,
+        );
+        const label = option ? option.label : status;
+        notify(`Moved to "${label}" shelf`, "success");
+      } else {
+        notify("Removed from your shelf", "info");
+      }
     },
-    [],
+    [notify],
   );
 
   const getStatus = useCallback(
-    (bookId: number): ReadingStatusValue | null => {
+    (bookIdOrKey: number | string): ReadingStatusValue | null => {
+      const bookId = normalizeBookId(bookIdOrKey);
       return statusMap[bookId] ?? null;
     },
     [statusMap],

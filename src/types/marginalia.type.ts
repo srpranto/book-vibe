@@ -3,6 +3,8 @@ export interface MarginaliaEntry {
   notes: string;
   favoriteQuotes: string[];
   finishedDate?: string;
+  userRating?: number;
+  currentPage?: number;
   updatedAt: string;
 }
 

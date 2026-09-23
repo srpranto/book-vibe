@@ -10,5 +10,11 @@ export type Book = {
   tags: string[];
   publisher: string;
   yearOfPublishing: number;
+  source?: "curated" | "openlibrary";
+  openLibraryKey?: string;
+  workId?: string;
+  iaId?: string;
+  readOnlineUrl?: string;
+  hasFulltext?: boolean;
+  isCustom?: boolean;
 };
-

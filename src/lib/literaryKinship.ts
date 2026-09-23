@@ -1,195 +1,223 @@
-import { getBookById } from "./books";
+import { getBookById, getAllBooks } from "./books";
+import { getDeterministicWorkBookId } from "./openLibrary";
 import type { Book } from "@/types/book.type";
 
-export interface KinshipConnection {
+interface KinshipConnection {
   targetBookId: number;
-  connectionType: "Dialogue" | "Influence" | "Philosophical Counterpart" | "Shared Sensibility";
+  connectionType:
+    | "Dialogue"
+    | "Influence"
+    | "Philosophical Counterpart"
+    | "Shared Sensibility";
   rationale: string;
 }
 
 const KINSHIP_MAP: Record<number, KinshipConnection[]> = {
-  1: [
+  // Franz Kafka - The Metamorphosis (OL262758W)
+  [getDeterministicWorkBookId("OL262758W")]: [
     {
-      targetBookId: 4, // The Stranger
-      connectionType: "Dialogue",
-      rationale:
-        "Where Josef K. fruitlessly searches for rational cause in a faceless legal machine, Camus's Meursault confronts the courtroom's identical hunger to impose neat moral narratives on an indifferent world.",
-    },
-    {
-      targetBookId: 21, // Nausea
-      connectionType: "Philosophical Counterpart",
-      rationale:
-        "Sartre's existential dread of physical existence directly echoes Kafka's claustrophobic sense that modern humans are perpetual defendants before an unnamable court.",
-    },
-  ],
-  2: [
-    {
-      targetBookId: 14, // Notes from Underground
+      targetBookId: getDeterministicWorkBookId("OL338947W"),
       connectionType: "Influence",
       rationale:
-        "Gregor Samsa's quiet, helpless metamorphosis is the tragic physical incarnation of the Underground Man's spiteful self-confinement from polite society.",
+        "Gregor Samsa's quiet psychological alienation echoes Raskolnikov's feverish guilt and estrangement from society.",
     },
     {
-      targetBookId: 19, // The Book of Disquiet
-      connectionType: "Shared Sensibility",
-      rationale:
-        "Both Kafka and Pessoa capture the fragile dignity of commercial clerks who discover enormous, terrifying psychological landscapes inside small rooms.",
-    },
-  ],
-  4: [
-    {
-      targetBookId: 5, // The Myth of Sisyphus
-      connectionType: "Dialogue",
-      rationale:
-        "The philosophical treatise written simultaneously with The Stranger: while Meursault lives the absurdity of life, Sisyphus explains why living it lucidly is supreme revolt.",
-    },
-    {
-      targetBookId: 13, // Crime and Punishment
+      targetBookId: getDeterministicWorkBookId("OL24033W"),
       connectionType: "Philosophical Counterpart",
       rationale:
-        "Dostoevsky's Raskolnikov kills for a grandiose theory and is crushed by conscience; Camus's Meursault shoots because the sun is in his eyes, defying society's moral formulas.",
+        "Both works examine an irreversible bodily and mental transformation that exposes the fragility of bourgeois domesticity.",
     },
   ],
-  5: [
+
+  // Fyodor Dostoevsky - Crime and Punishment (OL338947W)
+  [getDeterministicWorkBookId("OL338947W")]: [
     {
-      targetBookId: 28, // The Sickness Unto Death
+      targetBookId: getDeterministicWorkBookId("OL345719W"),
       connectionType: "Dialogue",
       rationale:
-        "Camus and Kierkegaard arrive at the exact same cliff edge of absurdity. Kierkegaard takes the leap of faith; Camus demands that the mind never leap, but stay and rebel.",
+        "Raskolnikov transgresses morality for an intellectual theory; Dorian Gray transgresses it for aesthetic pleasure. Both are consumed from within.",
+    },
+    {
+      targetBookId: getDeterministicWorkBookId("OL262758W"),
+      connectionType: "Shared Sensibility",
+      rationale:
+        "Both authors excavate the claustrophobic psychology of small rooms and the profound burden of conscience.",
     },
   ],
-  8: [
+
+  // Oscar Wilde - The Picture of Dorian Gray (OL345719W)
+  [getDeterministicWorkBookId("OL345719W")]: [
     {
-      targetBookId: 80, // The Secrets of the Self
+      targetBookId: getDeterministicWorkBookId("OL24033W"),
+      connectionType: "Dialogue",
+      rationale:
+        "Written in the same Victorian decade, both explore the moral horror of a hidden, degrading double self shielded from public scrutiny.",
+    },
+    {
+      targetBookId: getDeterministicWorkBookId("OL450063W"),
+      connectionType: "Philosophical Counterpart",
+      rationale:
+        "Frankenstein creates an external monstrous mirror; Dorian Gray creates an internal one locked behind an attic door.",
+    },
+  ],
+
+  // Mary Shelley - Frankenstein (OL450063W)
+  [getDeterministicWorkBookId("OL450063W")]: [
+    {
+      targetBookId: getDeterministicWorkBookId("OL85892W"),
       connectionType: "Influence",
       rationale:
-        "Allama Iqbal admired Nietzsche's fiery critique of passive quietism, but steered the will to power toward a spiritual revitalization of the soul (Khudi).",
+        "The gothic archetypes of Shelley and Stoker define the boundaries between human science, primal mortality, and existential dread.",
     },
     {
-      targetBookId: 9, // Beyond Good and Evil
+      targetBookId: getDeterministicWorkBookId("OL52267W"),
       connectionType: "Dialogue",
       rationale:
-        "The prose counterpart to Zarathustra's poetry: Nietzsche strips away the comfort of dogmatic morality to forge thinkers who love danger and free thought.",
+        "Shelley warns of the ethical perils of scientific hubris at the dawn of the industrial age; Wells projects its distant, terrifying conclusion.",
     },
   ],
-  13: [
+
+  // Bram Stoker - Dracula (OL85892W)
+  [getDeterministicWorkBookId("OL85892W")]: [
     {
-      targetBookId: 9, // Beyond Good and Evil
+      targetBookId: getDeterministicWorkBookId("OL450063W"),
       connectionType: "Dialogue",
       rationale:
-        "Nietzsche famously proclaimed that Dostoevsky was 'the only psychologist from whom I had something to learn.' Raskolnikov's Napoleon delusion prefigures the Übermensch.",
+        "Both masterpieces interrogate the collision between modern Victorian rationalism and ancient, unconquerable shadows.",
     },
     {
-      targetBookId: 15, // The Brothers Karamazov
-      connectionType: "Philosophical Counterpart",
+      targetBookId: getDeterministicWorkBookId("OL21177W"),
+      connectionType: "Shared Sensibility",
       rationale:
-        "Raskolnikov's solitary crime broadens into Ivan Karamazov's universal indictment of human suffering and divine justice.",
+        "Both works summon a dark, supernatural intensity where passion, death, and bleak landscapes intertwine.",
     },
   ],
-  14: [
+
+  // Charlotte Brontë - Jane Eyre (OL1095427W)
+  [getDeterministicWorkBookId("OL1095427W")]: [
     {
-      targetBookId: 21, // Nausea
+      targetBookId: getDeterministicWorkBookId("OL21177W"),
+      connectionType: "Shared Sensibility",
+      rationale:
+        "Sisters writing across the Yorkshire moors: Charlotte examines moral resilience and moral self-determination; Emily explores destructive, untamable passion.",
+    },
+    {
+      targetBookId: getDeterministicWorkBookId("OL66554W"),
+      connectionType: "Dialogue",
+      rationale:
+        "Jane Eyre's passionate moral independence enters into profound dialogue with Elizabeth Bennet's quick wit and social resistance.",
+    },
+  ],
+
+  // Emily Brontë - Wuthering Heights (OL21177W)
+  [getDeterministicWorkBookId("OL21177W")]: [
+    {
+      targetBookId: getDeterministicWorkBookId("OL1095427W"),
+      connectionType: "Shared Sensibility",
+      rationale:
+        "The sister novels of Haworth Parsonage: one governed by unyielding ethical integrity, the other by elemental, untamed fury.",
+    },
+    {
+      targetBookId: getDeterministicWorkBookId("OL85892W"),
       connectionType: "Influence",
       rationale:
-        "The Underground Man's paradoxical spite is the direct progenitor of Sartre's Roquentin, who recoils at the smooth, hypocritical self-satisfaction of respectable society.",
+        "Heathcliff's demonic ferocity and spectral haunting anticipate the dark gothic magnetism of the Victorian vampire.",
     },
   ],
-  15: [
+
+  // Jane Austen - Pride and Prejudice (OL66554W)
+  [getDeterministicWorkBookId("OL66554W")]: [
     {
-      targetBookId: 63, // Deliverance from Error
-      connectionType: "Shared Sensibility",
-      rationale:
-        "Both Dostoevsky and Al-Ghazali walked through the harrowing furnace of intellectual doubt before recognizing that pure syllogisms cannot heal a suffering human heart.",
-    },
-  ],
-  18: [
-    {
-      targetBookId: 34, // The Tartar Steppe
-      connectionType: "Shared Sensibility",
-      rationale:
-        "Tolstoy shows the tragedy of a life that lived according to bourgeois expectations; Buzzati shows the tragedy of a soldier waiting for a glorious battle that never arrives.",
-    },
-  ],
-  19: [
-    {
-      targetBookId: 24, // On the Heights of Despair
-      connectionType: "Shared Sensibility",
-      rationale:
-        "Written in Lisbon and Bucharest respectively, both Pessoa and Cioran elevate midnight sleeplessness, loneliness, and the beauty of melancholy into sublime art.",
-    },
-  ],
-  44: [
-    {
-      targetBookId: 46, // The Home and the World
+      targetBookId: getDeterministicWorkBookId("OL1095427W"),
       connectionType: "Dialogue",
       rationale:
-        "Tagore's twin masterworks exploring the conflict between fierce nationalist orthodoxy and universal humanist ethics in colonial Bengal.",
+        "Both celebrate heroine protagonists who refuse marriages of mere financial convenience, demanding intellectual and emotional equality.",
     },
     {
-      targetBookId: 52, // Srikanta
-      connectionType: "Shared Sensibility",
-      rationale:
-        "Tagore and Sarat Chandra capture the caste constraints, social hypocrisies, and quiet moral resilience of early 20th-century Bengali society.",
-    },
-  ],
-  47: [
-    {
-      targetBookId: 49, // Aranyak
-      connectionType: "Shared Sensibility",
-      rationale:
-        "Bibhutibhushan's lyrical reverence for nature: from the village thickets of Nischindipur to the primeval forests of Bihar, nature is an intimate living presence.",
-    },
-    {
-      targetBookId: 55, // Padma Nadir Majhi
+      targetBookId: getDeterministicWorkBookId("OL468431W"),
       connectionType: "Philosophical Counterpart",
       rationale:
-        "Where Bibhutibhushan sees gentle poetry in rural struggles, Manik Bandopadhyay brings fierce, uncompromising social realism and elemental hunger.",
+        "Austen dissects social class and pride with sparkling irony; Fitzgerald observes the tragic illusion of social climbing in the Jazz Age.",
     },
   ],
-  63: [
+
+  // Marcus Aurelius - Meditations (OL44337W)
+  [getDeterministicWorkBookId("OL44337W")]: [
     {
-      targetBookId: 73, // The Decisive Treatise
-      connectionType: "Dialogue",
-      rationale:
-        "The grand classical dialogue of Islamic civilization: Al-Ghazali questions the limits of Greek philosophical metaphysics, and Ibn Rushd provides the counter-defense.",
-    },
-    {
-      targetBookId: 72, // Hayy ibn Yaqdhan
+      targetBookId: getDeterministicWorkBookId("OL257618W"),
       connectionType: "Philosophical Counterpart",
       rationale:
-        "Ibn Tufayl's famous philosophical novel demonstrates that natural human reason, left uncorrupted by societal prejudice, arrives at spiritual enlightenment.",
+        "Marcus Aurelius advises rulers to govern from inner virtue and duty; Machiavelli insists that survival requires pragmatic realism and worldly cunning.",
     },
-  ],
-  65: [
     {
-      targetBookId: 87, // Lost Islamic History
-      connectionType: "Dialogue",
-      rationale:
-        "Ibn Khaldun's foundational theories of Asabiyyah (social cohesion) and dynastic cycles provide the interpretive lens for tracing 1,400 years of Islamic civilization.",
-    },
-  ],
-  67: [
-    {
-      targetBookId: 68, // The Conference of the Birds
+      targetBookId: getDeterministicWorkBookId("OL12297W"),
       connectionType: "Shared Sensibility",
       rationale:
-        "Rumi and Attar represent the pinnacle of Persian Sufi poetry: journeying through longing, annihilation of the ego, and finding the Divine within.",
+        "Both provide profound spiritual contemplation on acceptance, the brevity of mortal life, and living in harmony with nature.",
     },
   ],
-  80: [
+
+  // Niccolò Machiavelli - The Prince (OL257618W)
+  [getDeterministicWorkBookId("OL257618W")]: [
     {
-      targetBookId: 67, // The Masnavi
+      targetBookId: getDeterministicWorkBookId("OL44337W"),
+      connectionType: "Dialogue",
+      rationale:
+        "The great debate of European statecraft: Stoic virtue and inner justice versus pragmatic political survival and realpolitik.",
+    },
+    {
+      targetBookId: getDeterministicWorkBookId("OL9170454W"),
+      connectionType: "Philosophical Counterpart",
+      rationale:
+        "Machiavelli teaches how rulers must act decisively without moral squeamishness; Hamlet embodies the paralysis caused by overthinking moral consequence.",
+    },
+  ],
+
+  // William Shakespeare - Hamlet (OL9170454W)
+  [getDeterministicWorkBookId("OL9170454W")]: [
+    {
+      targetBookId: getDeterministicWorkBookId("OL9170453W"),
+      connectionType: "Shared Sensibility",
+      rationale:
+        "Shakespearean masterworks exploring how generational guilt, royal politics, and fateful choices ensnare youthful innocence.",
+    },
+    {
+      targetBookId: getDeterministicWorkBookId("OL338947W"),
       connectionType: "Influence",
       rationale:
-        "Iqbal took Rumi as his spiritual master (Pir-e-Rumi), modernizing classical Sufi intuition to summon Eastern consciousness out of colonial lethargy.",
+        "Hamlet's relentless self-interrogation and moral fever directly anticipated Dostoevsky's psychological interiority in Crime and Punishment.",
     },
   ],
-  84: [
+
+  // Homer - The Odyssey (OL103133W)
+  [getDeterministicWorkBookId("OL103133W")]: [
     {
-      targetBookId: 81, // The Road to Mecca
+      targetBookId: getDeterministicWorkBookId("OL45089W"),
+      connectionType: "Influence",
+      rationale:
+        "The ancient archetype of the solitary traveler confronting the sea and unknown shores laid the foundation for Defoe's castaway narrative.",
+    },
+    {
+      targetBookId: getDeterministicWorkBookId("OL24034W"),
       connectionType: "Dialogue",
       rationale:
-        "Two extraordinary spiritual journeys across continents and identities: Muhammad Asad from Austrian journalism, and Malcolm X from Harlem to Mecca, finding true brotherhood.",
+        "Both capture the irresistible siren call of uncharted waters, high adventure, and the triumph of human wits over peril.",
+    },
+  ],
+
+  // Daniel Defoe - Robinson Crusoe (OL45089W)
+  [getDeterministicWorkBookId("OL45089W")]: [
+    {
+      targetBookId: getDeterministicWorkBookId("OL103133W"),
+      connectionType: "Influence",
+      rationale:
+        "Defoe transforms Odysseus's mythical sea trials into a modern, empirical narrative of survival, labor, and faith.",
+    },
+    {
+      targetBookId: getDeterministicWorkBookId("OL52267W"),
+      connectionType: "Philosophical Counterpart",
+      rationale:
+        "Crusoe rebuilds human order on a deserted island; Wells's Time Traveller discovers humanity's distant descendents having abandoned all labor and intellect.",
     },
   ],
 };
@@ -200,7 +228,11 @@ export interface ResolvedKinship {
   rationale: string;
 }
 
-export function getKinshipForBook(bookId: number): ResolvedKinship[] {
+export function getKinshipForBook(
+  bookId: number,
+  category?: string,
+  bookName?: string,
+): ResolvedKinship[] {
   const connections = KINSHIP_MAP[bookId];
   if (connections && connections.length > 0) {
     const resolved: ResolvedKinship[] = [];
@@ -217,9 +249,26 @@ export function getKinshipForBook(bookId: number): ResolvedKinship[] {
     if (resolved.length > 0) return resolved;
   }
 
-  // Fallback: smart thematic connection if book doesn't have an explicit kinship entry
-  const current = getBookById(bookId);
-  if (!current) return [];
+  const allBooks = getAllBooks();
+  const matched = allBooks
+    .filter((b) => b.bookId !== bookId)
+    .filter(
+      (b) =>
+        category &&
+        (b.category.toLowerCase().includes(category.toLowerCase()) ||
+          category.toLowerCase().includes(b.category.toLowerCase())),
+    )
+    .slice(0, 2);
 
-  return [];
+  const fallbackBooks = matched.length > 0 ? matched : allBooks.slice(0, 2);
+
+  return fallbackBooks.map((b, idx) => ({
+    book: b,
+    connectionType: (idx === 0
+      ? "Shared Sensibility"
+      : "Philosophical Counterpart") as KinshipConnection["connectionType"],
+    rationale: `Both ${
+      bookName ? `"${bookName}"` : "this work"
+    } and "${b.bookName}" explore foundational human dilemmas, psychological interiority, and enduring literary depth across classic traditions.`,
+  }));
 }

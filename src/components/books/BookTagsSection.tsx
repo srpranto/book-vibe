@@ -17,7 +17,7 @@ const BookTagsSection = ({
       {tags.map((tag) => (
         <span
           key={tag}
-          className="rounded-full bg-[#F5ECE3] px-3.5 py-1 text-xs font-bold text-[#5B3315] ring-1 ring-[#E8D5C4] transition hover:bg-[#E8D5C4]"
+          className="rounded-full bg-muted px-3.5 py-1 text-xs font-bold text-[#5B3315] ring-1 ring-[#E8D5C4] transition hover:bg-[#E8D5C4]"
         >
           #{tag}
         </span>

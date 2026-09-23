@@ -19,6 +19,7 @@
 
 # production
 /build
+/dist
 
 # misc
 .DS_Store
@@ -60,3 +61,8 @@ $RECYCLE.BIN/
 
 # Local tools & worktrees
 .kilo/
+.gemini/
+.antigravity/
+.claude/
+.cursor/
+.copilot/

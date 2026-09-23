@@ -8,10 +8,7 @@ import {
   useState,
 } from "react";
 import type { ReactElement, ReactNode } from "react";
-import type {
-  MarginaliaEntry,
-  MarginaliaMap,
-} from "@/types/marginalia.type";
+import type { MarginaliaEntry, MarginaliaMap } from "@/types/marginalia.type";
 
 const STORAGE_KEY = "book-vibe-marginalia";
 
@@ -22,8 +19,9 @@ interface MarginaliaContextType {
   addQuote: (bookId: number, quote: string) => void;
   removeQuote: (bookId: number, quoteIndex: number) => void;
   setFinishedDate: (bookId: number, date?: string) => void;
+  setUserRating: (bookId: number, rating?: number) => void;
+  setCurrentPage: (bookId: number, page?: number) => void;
   clearEntry: (bookId: number) => void;
-  importMap: (imported: MarginaliaMap) => void;
   isMounted: boolean;
 }
 
@@ -34,15 +32,20 @@ const MarginaliaContext = createContext<MarginaliaContextType>({
   addQuote: () => {},
   removeQuote: () => {},
   setFinishedDate: () => {},
+  setUserRating: () => {},
+  setCurrentPage: () => {},
   clearEntry: () => {},
-  importMap: () => {},
   isMounted: false,
 });
 
 function parseMarginaliaMap(raw: string): MarginaliaMap {
   try {
     const parsed: unknown = JSON.parse(raw);
-    if (typeof parsed === "object" && parsed !== null && !Array.isArray(parsed)) {
+    if (
+      typeof parsed === "object" &&
+      parsed !== null &&
+      !Array.isArray(parsed)
+    ) {
       const result: MarginaliaMap = {};
       for (const [key, val] of Object.entries(parsed)) {
         const numKey = Number(key);
@@ -52,11 +55,23 @@ function parseMarginaliaMap(raw: string): MarginaliaMap {
             bookId: numKey,
             notes: typeof entry.notes === "string" ? entry.notes : "",
             favoriteQuotes: Array.isArray(entry.favoriteQuotes)
-              ? entry.favoriteQuotes.filter((q): q is string => typeof q === "string")
+              ? entry.favoriteQuotes.filter(
+                  (q): q is string => typeof q === "string",
+                )
               : [],
             finishedDate:
               typeof entry.finishedDate === "string"
                 ? entry.finishedDate
+                : undefined,
+            userRating:
+              typeof entry.userRating === "number" &&
+              !Number.isNaN(entry.userRating)
+                ? Math.min(5, Math.max(1, entry.userRating))
+                : undefined,
+            currentPage:
+              typeof entry.currentPage === "number" &&
+              !Number.isNaN(entry.currentPage)
+                ? Math.max(0, entry.currentPage)
                 : undefined,
             updatedAt:
               typeof entry.updatedAt === "string"
@@ -89,7 +104,6 @@ export function MarginaliaProvider({
         });
       }
     } catch {
-      // Ignore storage errors
     }
     queueMicrotask(() => {
       setIsMounted(true);
@@ -100,7 +114,6 @@ export function MarginaliaProvider({
     try {
       localStorage.setItem(STORAGE_KEY, JSON.stringify(map));
     } catch {
-      // Ignore storage errors
     }
   };
 
@@ -111,56 +124,50 @@ export function MarginaliaProvider({
     [marginaliaMap],
   );
 
-  const updateNotes = useCallback(
-    (bookId: number, notes: string): void => {
-      setMarginaliaMap((prev) => {
-        const current = prev[bookId] || {
-          bookId,
-          notes: "",
-          favoriteQuotes: [],
+  const updateNotes = useCallback((bookId: number, notes: string): void => {
+    setMarginaliaMap((prev) => {
+      const current = prev[bookId] || {
+        bookId,
+        notes: "",
+        favoriteQuotes: [],
+        updatedAt: new Date().toISOString(),
+      };
+      const next: MarginaliaMap = {
+        ...prev,
+        [bookId]: {
+          ...current,
+          notes,
           updatedAt: new Date().toISOString(),
-        };
-        const next: MarginaliaMap = {
-          ...prev,
-          [bookId]: {
-            ...current,
-            notes,
-            updatedAt: new Date().toISOString(),
-          },
-        };
-        saveToStorage(next);
-        return next;
-      });
-    },
-    [],
-  );
+        },
+      };
+      saveToStorage(next);
+      return next;
+    });
+  }, []);
 
-  const addQuote = useCallback(
-    (bookId: number, quote: string): void => {
-      const trimmed = quote.trim();
-      if (!trimmed) return;
-      setMarginaliaMap((prev) => {
-        const current = prev[bookId] || {
-          bookId,
-          notes: "",
-          favoriteQuotes: [],
+  const addQuote = useCallback((bookId: number, quote: string): void => {
+    const trimmed = quote.trim();
+    if (!trimmed) return;
+    setMarginaliaMap((prev) => {
+      const current = prev[bookId] || {
+        bookId,
+        notes: "",
+        favoriteQuotes: [],
+        updatedAt: new Date().toISOString(),
+      };
+      if (current.favoriteQuotes.includes(trimmed)) return prev;
+      const next: MarginaliaMap = {
+        ...prev,
+        [bookId]: {
+          ...current,
+          favoriteQuotes: [...current.favoriteQuotes, trimmed],
           updatedAt: new Date().toISOString(),
-        };
-        if (current.favoriteQuotes.includes(trimmed)) return prev;
-        const next: MarginaliaMap = {
-          ...prev,
-          [bookId]: {
-            ...current,
-            favoriteQuotes: [...current.favoriteQuotes, trimmed],
-            updatedAt: new Date().toISOString(),
-          },
-        };
-        saveToStorage(next);
-        return next;
-      });
-    },
-    [],
-  );
+        },
+      };
+      saveToStorage(next);
+      return next;
+    });
+  }, []);
 
   const removeQuote = useCallback(
     (bookId: number, quoteIndex: number): void => {
@@ -185,43 +192,80 @@ export function MarginaliaProvider({
     [],
   );
 
-  const setFinishedDate = useCallback(
-    (bookId: number, date?: string): void => {
-      setMarginaliaMap((prev) => {
-        const current = prev[bookId] || {
-          bookId,
-          notes: "",
-          favoriteQuotes: [],
+  const setFinishedDate = useCallback((bookId: number, date?: string): void => {
+    setMarginaliaMap((prev) => {
+      const current = prev[bookId] || {
+        bookId,
+        notes: "",
+        favoriteQuotes: [],
+        updatedAt: new Date().toISOString(),
+      };
+      const next: MarginaliaMap = {
+        ...prev,
+        [bookId]: {
+          ...current,
+          finishedDate: date,
           updatedAt: new Date().toISOString(),
-        };
-        const next: MarginaliaMap = {
-          ...prev,
-          [bookId]: {
-            ...current,
-            finishedDate: date,
-            updatedAt: new Date().toISOString(),
-          },
-        };
-        saveToStorage(next);
-        return next;
-      });
-    },
-    [],
-  );
+        },
+      };
+      saveToStorage(next);
+      return next;
+    });
+  }, []);
+
+  const setUserRating = useCallback((bookId: number, rating?: number): void => {
+    setMarginaliaMap((prev) => {
+      const current = prev[bookId] || {
+        bookId,
+        notes: "",
+        favoriteQuotes: [],
+        updatedAt: new Date().toISOString(),
+      };
+      const next: MarginaliaMap = {
+        ...prev,
+        [bookId]: {
+          ...current,
+          userRating:
+            typeof rating === "number"
+              ? Math.min(5, Math.max(1, Math.round(rating)))
+              : undefined,
+          updatedAt: new Date().toISOString(),
+        },
+      };
+      saveToStorage(next);
+      return next;
+    });
+  }, []);
+
+  const setCurrentPage = useCallback((bookId: number, page?: number): void => {
+    setMarginaliaMap((prev) => {
+      const current = prev[bookId] || {
+        bookId,
+        notes: "",
+        favoriteQuotes: [],
+        updatedAt: new Date().toISOString(),
+      };
+      const next: MarginaliaMap = {
+        ...prev,
+        [bookId]: {
+          ...current,
+          currentPage:
+            typeof page === "number"
+              ? Math.max(0, Math.round(page))
+              : undefined,
+          updatedAt: new Date().toISOString(),
+        },
+      };
+      saveToStorage(next);
+      return next;
+    });
+  }, []);
 
   const clearEntry = useCallback((bookId: number): void => {
     setMarginaliaMap((prev) => {
       if (!prev[bookId]) return prev;
       const next = { ...prev };
       delete next[bookId];
-      saveToStorage(next);
-      return next;
-    });
-  }, []);
-
-  const importMap = useCallback((imported: MarginaliaMap): void => {
-    setMarginaliaMap((prev) => {
-      const next = { ...prev, ...imported };
       saveToStorage(next);
       return next;
     });
@@ -236,8 +280,9 @@ export function MarginaliaProvider({
         addQuote,
         removeQuote,
         setFinishedDate,
+        setUserRating,
+        setCurrentPage,
         clearEntry,
-        importMap,
         isMounted,
       }}
     >

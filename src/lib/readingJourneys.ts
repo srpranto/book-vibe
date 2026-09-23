@@ -1,4 +1,6 @@
-export interface JourneyStep {
+import { getDeterministicWorkBookId } from "./openLibrary";
+
+interface JourneyStep {
   bookId: number;
   stepNumber: number;
   stageTitle: string;
@@ -20,243 +22,218 @@ export interface ReadingJourney {
 
 export const READING_JOURNEYS: ReadingJourney[] = [
   {
-    id: "existential-odyssey",
-    title: "The Existential Odyssey",
-    subtitle: "From Alienation & Dread to Conscious Freedom",
-    badge: "Existential Philosophy",
+    id: "existential-psychology",
+    title: "The Existential & Psychological Odyssey",
+    subtitle: "From Alienation & Guilt to Dual Selves",
+    badge: "Psychological Fiction",
     emoji: "🪨",
-    themeColor: "from-[#8B5A2B]/15 to-[#D4A373]/10",
+    themeColor: "from-primary/15 to-secondary/10",
     description:
-      "A guided traversal through the architecture of modern dread, the burden of solitary choice, and the defiant choice to live fully in an indifferent cosmos.",
+      "A guided traversal through the architecture of modern dread, moral reckoning, divided consciousness, and the defiance of the human spirit.",
     curatorNote:
-      "Begin with Samsa's quiet alienation, witness Sisyphus's defiant laughter, and culminate in Kierkegaard's profound inquiry into despair.",
+      "Begin with Samsa's quiet alienation, descend into Raskolnikov's feverish guilt, confront Dorian Gray's vanity, and conclude with the dark duality of Jekyll and Hyde.",
     estimatedTotalHours: 24,
     steps: [
       {
-        bookId: 2, // The Metamorphosis
+        bookId: getDeterministicWorkBookId("OL262758W"),
         stepNumber: 1,
         stageTitle: "The Fracture of Ordinary Life",
         reflectionPrompt:
           "How does Kafka portray estrangement not as an external tragedy, but as the quiet rupture of routine?",
       },
       {
-        bookId: 4, // The Stranger
-        stepNumber: 2,
-        stageTitle: "Encountering the Absurd",
-        reflectionPrompt:
-          "Meursault refuses to perform grief or guilt. What does his honesty reveal about society's demand for illusions?",
-      },
-      {
-        bookId: 5, // The Myth of Sisyphus
-        stepNumber: 3,
-        stageTitle: "Lucidity & Defiance",
-        reflectionPrompt:
-          "If life has no inherent meaning, does that make living an act of despair or an act of supreme revolt?",
-      },
-      {
-        bookId: 21, // Nausea
-        stepNumber: 4,
-        stageTitle: "The Viscosity of Existence",
-        reflectionPrompt:
-          "Roquentin discovers that things simply exist, gratuitously and without purpose. Where does freedom begin?",
-      },
-      {
-        bookId: 28, // The Sickness Unto Death
-        stepNumber: 5,
-        stageTitle: "The Anatomy of Despair",
-        reflectionPrompt:
-          "For Kierkegaard, despair is not sorrow, but the misrelation of the self to itself. What brings synthesis?",
-      },
-    ],
-  },
-  {
-    id: "wisdom-doubt-soul",
-    title: "Wisdom, Doubt & Soul",
-    subtitle: "Classical Islamic Philosophy & Spiritual Discovery",
-    badge: "Islamic Philosophy",
-    emoji: "🕌",
-    themeColor: "from-[#4A3B2C]/15 to-[#8B5A2B]/10",
-    description:
-      "Trace the profound intellectual dialogue of classical Islam—wrestling with theological skepticism, the harmony of revelation and reason, and inner spiritual purification.",
-    curatorNote:
-      "From Al-Ghazali's epistemological crisis to Ibn Tufayl's desert island rationalism and Attar's allegorical quest of the birds.",
-    estimatedTotalHours: 28,
-    steps: [
-      {
-        bookId: 63, // Deliverance from Error
-        stepNumber: 1,
-        stageTitle: "The Crucible of Skepticism",
-        reflectionPrompt:
-          "Al-Ghazali doubted senses and pure intellect centuries before Descartes. How does certitude re-emerge?",
-      },
-      {
-        bookId: 72, // Hayy ibn Yaqdhan
-        stepNumber: 2,
-        stageTitle: "Reason Untamed by Dogma",
-        reflectionPrompt:
-          "A feral human child deduces cosmology, ethics, and metaphysics through unguided observation alone.",
-      },
-      {
-        bookId: 73, // The Decisive Treatise
-        stepNumber: 3,
-        stageTitle: "Truth Does Not Contradict Truth",
-        reflectionPrompt:
-          "Ibn Rushd's seminal defense of philosophy: can philosophical logic ever truly undermine revealed truth?",
-      },
-      {
-        bookId: 68, // The Conference of the Birds
-        stepNumber: 4,
-        stageTitle: "The Seven Valleys of the Heart",
-        reflectionPrompt:
-          "Attar's epic spiritual journey where thirty birds cross the abyss only to discover the Divine within.",
-      },
-      {
-        bookId: 80, // The Secrets of the Self
-        stepNumber: 5,
-        stageTitle: "Awakening the Dormant Will",
-        reflectionPrompt:
-          "Iqbal's call to shatter quietism and revitalize the spiritual self (Khudi) in an era of colonial malaise.",
-      },
-    ],
-  },
-  {
-    id: "bengal-humanist-tapestry",
-    title: "Bengal's Humanist Tapestry",
-    subtitle: "Rivers, Identity & the Awakening of Conscience",
-    badge: "Bengali Masterworks",
-    emoji: "🌾",
-    themeColor: "from-[#7A4B22]/15 to-[#D4A373]/10",
-    description:
-      "Experience the golden dawn of modern Bengali letters—rich with monsoon rain, village paths, societal caste conflicts, and unvarnished emotional dignity.",
-    curatorNote:
-      "A pilgrimage through Tagore's philosophical nationhood, Bibhutibhushan's pastoral lyricism, and Manik's psychological realism.",
-    estimatedTotalHours: 32,
-    steps: [
-      {
-        bookId: 44, // Gora
-        stepNumber: 1,
-        stageTitle: "Identity, Orthodoxy & Universalism",
-        reflectionPrompt:
-          "Gora defends tradition fiercely until truth shatters his ancestral illusions, giving birth to a universal humanism.",
-      },
-      {
-        bookId: 47, // Pather Panchali
-        stepNumber: 2,
-        stageTitle: "Song of the Rural Path",
-        reflectionPrompt:
-          "Through the wide eyes of Apu and Durga, Bibhutibhushan immortalizes the wondrous poetry of quiet rural poverty.",
-      },
-      {
-        bookId: 52, // Srikanta
-        stepNumber: 3,
-        stageTitle: "The Wandering Conscience",
-        reflectionPrompt:
-          "Sarat Chandra's bohemian wanderer explores love beyond societal sanction, casting light on outcast women.",
-      },
-      {
-        bookId: 55, // Padma Nadir Majhi
-        stepNumber: 4,
-        stageTitle: "The River & the Fisherman's Fate",
-        reflectionPrompt:
-          "Manik Bandopadhyay's unsparing depiction of the relentless Padma river, survival, desire, and Mayadwip.",
-      },
-      {
-        bookId: 56, // Putul Nacher Itikatha
-        stepNumber: 5,
-        stageTitle: "The Puppet Dance of Desires",
-        reflectionPrompt:
-          "Shashi the doctor realizes that despite education and science, humanity remains tethered to unconscious instincts.",
-      },
-    ],
-  },
-  {
-    id: "russian-conscience",
-    title: "The Weight of Conscience",
-    subtitle: "Guilt, Redemption & Russian Psychological Depths",
-    badge: "Russian Classics",
-    emoji: "❄️",
-    themeColor: "from-[#5B3315]/15 to-[#8B5A2B]/10",
-    description:
-      "Descend into St. Petersburg stairwells and Siberian exiles to confront moral transgression, the burden of ego, and the sanctity of suffering.",
-    curatorNote:
-      "Few writers have excavated the criminal heart as Dostoevsky did, or laid bare the vanity of comfortable death as Tolstoy.",
-    estimatedTotalHours: 36,
-    steps: [
-      {
-        bookId: 14, // Notes from Underground
-        stepNumber: 1,
-        stageTitle: "The Paradoxical Self",
-        reflectionPrompt:
-          "The spiteful narrator refuses 2+2=4. Why does humanity cling to irrational spite rather than sterile logic?",
-      },
-      {
-        bookId: 13, // Crime and Punishment
+        bookId: getDeterministicWorkBookId("OL338947W"),
         stepNumber: 2,
         stageTitle: "The Extraordinary Man Delusion",
         reflectionPrompt:
-          "Raskolnikov tests whether superior men stand above morality, only to be crushed by his own conscience.",
+          "Raskolnikov tests whether superior minds stand above morality, only to be crushed by conscience. What redeems him?",
       },
       {
-        bookId: 18, // The Death of Ivan Ilyich
+        bookId: getDeterministicWorkBookId("OL345719W"),
         stepNumber: 3,
-        stageTitle: "The Terror of the Ordinary",
+        stageTitle: "The Vanity of the Unblemished Face",
         reflectionPrompt:
-          "Ivan Ilyich lived decorously, comfortably, and according to rule—and therefore his life was completely terrible.",
+          "When aesthetic beauty is decoupled from moral consequence, does art liberate life or corrupt it?",
       },
       {
-        bookId: 15, // The Brothers Karamazov
+        bookId: getDeterministicWorkBookId("OL24033W"),
         stepNumber: 4,
-        stageTitle: "Faith, Doubt & the Grand Inquisitor",
+        stageTitle: "The Severed Self",
         reflectionPrompt:
-          "Ivan's rebellion against innocent suffering vs. Father Zosima's active love: can the world bear its own burden?",
+          "Stevenson reveals that man is not truly one, but truly two. What happens when society demands the suppression of the shadow self?",
       },
     ],
   },
   {
-    id: "nocturnal-solitude",
-    title: "Nocturnal Melancholy & Solitude",
-    subtitle: "The Inner Fortresses of the Solitary Reader",
-    badge: "Meditations on Solitude",
-    emoji: "🌙",
-    themeColor: "from-[#2C1810]/20 to-[#6F5B50]/15",
+    id: "philosophy-power-soul",
+    title: "Philosophy, Power & the Soul",
+    subtitle: "Stoic Duty, Statecraft & Spiritual Illumination",
+    badge: "Philosophy & Thought",
+    emoji: "🏛️",
+    themeColor: "from-[#4A3B2C]/15 to-primary/10",
     description:
-      "A quiet evening sanctuary for introspective wanderers. Books that capture midnight streets, unfinished manuscripts, and the sublime peace of solitude.",
+      "Trace the grand spectrum of human governance—from the private Stoic meditations of an emperor to Machiavellian realism and mystical spiritual wisdom.",
     curatorNote:
-      "Read slowly, preferably late at night with a quiet cup of tea or dark brew.",
+      "From Marcus Aurelius's self-mastery in camp to Machiavelli's cold pragmatic counsel and Gibran's timeless poetic contemplation of love and freedom.",
+    estimatedTotalHours: 22,
+    steps: [
+      {
+        bookId: getDeterministicWorkBookId("OL44337W"),
+        stepNumber: 1,
+        stageTitle: "The Citadel of the Mind",
+        reflectionPrompt:
+          "How does Marcus Aurelius find stillness and ethical resolve amidst plague, betrayal, and the burdens of rule?",
+      },
+      {
+        bookId: getDeterministicWorkBookId("OL257618W"),
+        stepNumber: 2,
+        stageTitle: "The Calculus of Power",
+        reflectionPrompt:
+          "Machiavelli insists on the effective truth of things rather than imaginary republics. Is political morality distinct from personal ethics?",
+      },
+      {
+        bookId: getDeterministicWorkBookId("OL12297W"),
+        stepNumber: 3,
+        stageTitle: "The Poetry of Being",
+        reflectionPrompt:
+          "Almustafa speaks on work, joy, sorrow, and time. How does poetry bridge the gulf between solitude and community?",
+      },
+      {
+        bookId: getDeterministicWorkBookId("OL503666W"),
+        stepNumber: 4,
+        stageTitle: "The Knight of the Sorrowful Countenance",
+        reflectionPrompt:
+          "Don Quixote tilts at windmills for an ideal world. Is madness in pursuit of honor nobler than cynical sanity?",
+      },
+    ],
+  },
+  {
+    id: "gothic-shadows-passion",
+    title: "Gothic Shadows & Tempestuous Passion",
+    subtitle: "Hubris, Monsters & Defiant Love",
+    badge: "Gothic Masterpieces",
+    emoji: "🕯️",
+    themeColor: "from-[#5B3315]/15 to-primary/10",
+    description:
+      "Enter the storm-swept moors, dark castles, and electric laboratories of 19th-century gothic romance and terror.",
+    curatorNote:
+      "Witness Mary Shelley's tragic Creature, Stoker's nocturnal predator, and the fiercely independent spirits of the Brontë sisters.",
+    estimatedTotalHours: 28,
+    steps: [
+      {
+        bookId: getDeterministicWorkBookId("OL450063W"),
+        stepNumber: 1,
+        stageTitle: "The Modern Prometheus",
+        reflectionPrompt:
+          "Who is the true monster: the creature created and abandoned, or the scientist consumed by unchecked ambition?",
+      },
+      {
+        bookId: getDeterministicWorkBookId("OL85892W"),
+        stepNumber: 2,
+        stageTitle: "The Shadow from the East",
+        reflectionPrompt:
+          "Count Dracula invades Victorian England not just with claws, but with ancient bloodlines and psychological contagion.",
+      },
+      {
+        bookId: getDeterministicWorkBookId("OL1095427W"),
+        stepNumber: 3,
+        stageTitle: "Integrity Against the World",
+        reflectionPrompt:
+          "Jane Eyre asserts: 'I am a free human being with an independent will.' How does her moral spine withstand Thornfield's secrets?",
+      },
+      {
+        bookId: getDeterministicWorkBookId("OL21177W"),
+        stepNumber: 4,
+        stageTitle: "The Heath of Consuming Love",
+        reflectionPrompt:
+          "Catherine and Heathcliff's bond transcends morality, marriage, and mortality. Is their connection demonic or transcendent?",
+      },
+    ],
+  },
+  {
+    id: "epics-and-horizons",
+    title: "Grand Epics & Far Horizons",
+    subtitle: "Ancient Odysseys, Castaways & the Edge of Time",
+    badge: "Adventure & Odyssey",
+    emoji: "🌊",
+    themeColor: "from-[#2C1810]/20 to-muted-foreground/15",
+    description:
+      "Voyage beyond known maps—from Homer's wine-dark Mediterranean to desert islands, pirate treasures, and the distant year 802,701 AD.",
+    curatorNote:
+      "A thrilling sequence of human resilience, survival against nature, cunning intellect, and speculative futures.",
     estimatedTotalHours: 26,
     steps: [
       {
-        bookId: 19, // The Book of Disquiet
+        bookId: getDeterministicWorkBookId("OL103133W"),
         stepNumber: 1,
-        stageTitle: "The Factless Autobiography",
+        stageTitle: "The Homecoming of the Wily Wanderer",
         reflectionPrompt:
-          "Bernardo Soares records the rain falling on Lisbon and the immense universe inside a quiet office clerk.",
+          "Odysseus relies on metis (cunning) more than raw strength. What does his journey reveal about the hunger for home?",
       },
       {
-        bookId: 34, // The Tartar Steppe
+        bookId: getDeterministicWorkBookId("OL45089W"),
         stepNumber: 2,
-        stageTitle: "Waiting at the Edge of the Desert",
+        stageTitle: "The Sovereign Castaway",
         reflectionPrompt:
-          "Giovanni Drogo waits at Fort Bastiani for glory that never comes, while youth quietly drains away.",
+          "Robinson Crusoe rebuilds civilization from wreckage. What are the limits of rational self-reliance on an isolated island?",
       },
       {
-        bookId: 35, // Steppenwolf
+        bookId: getDeterministicWorkBookId("OL24034W"),
         stepNumber: 3,
-        stageTitle: "The Wolf of the Steppes",
+        stageTitle: "Sails, Cutlasses & Silver's Shadow",
         reflectionPrompt:
-          "Harry Haller torn between bourgeois comfort and feral intellectual detachment: how to laugh at life?",
+          "Long John Silver shifts between charming sea-cook and ruthless mutineer. Why is he one of fiction's most magnetic rogues?",
       },
       {
-        bookId: 24, // On the Heights of Despair
+        bookId: getDeterministicWorkBookId("OL52267W"),
         stepNumber: 4,
-        stageTitle: "Lyrical Insomnia",
+        stageTitle: "The Dying Sunset of the Earth",
         reflectionPrompt:
-          "Written at age twenty-two during agonizing sleepless nights, Cioran transforms sorrow into sheer incandescent prose.",
+          "Wells's Time Traveller looks into the deep future of humanity divided. What is his warning to industrial society?",
+      },
+    ],
+  },
+  {
+    id: "social-canvas-and-wit",
+    title: "The Social Canvas & The Play of Life",
+    subtitle: "Regency Wit, Shakespearean Tragedy & Modern Illusions",
+    badge: "Classic Drama & Wit",
+    emoji: "🎭",
+    themeColor: "from-secondary/20 to-primary/10",
+    description:
+      "Delve into human character through brilliant dialogue, social satire, romantic comedy, and the tragic illusions of ambition.",
+    curatorNote:
+      "From Austen's razor-sharp Regency parlors to Hamlet's castle ramparts and Gatsby's glittering green light.",
+    estimatedTotalHours: 25,
+    steps: [
+      {
+        bookId: getDeterministicWorkBookId("OL66554W"),
+        stepNumber: 1,
+        stageTitle: "First Impressions & Chastened Pride",
+        reflectionPrompt:
+          "Elizabeth Bennet must overcome prejudice while Darcy must dismantle pride. What makes their dialogue timelessly modern?",
+      },
+      {
+        bookId: getDeterministicWorkBookId("OL9170454W"),
+        stepNumber: 2,
+        stageTitle: "The Traitor Within the Mind",
+        reflectionPrompt:
+          "Hamlet hesitates not because he is weak, but because he sees all moral consequences simultaneously. What is the price of awareness?",
+      },
+      {
+        bookId: getDeterministicWorkBookId("OL32466W"),
+        stepNumber: 3,
+        stageTitle: "Reclaiming the Human Heart",
+        reflectionPrompt:
+          "Scrooge sees his past, present, and unmourned future. Can a hardened heart truly be renewed in a single night?",
+      },
+      {
+        bookId: getDeterministicWorkBookId("OL468431W"),
+        stepNumber: 4,
+        stageTitle: "The Green Light Across the Bay",
+        reflectionPrompt:
+          "Gatsby believes he can repeat the past through pure will and spectacle. What causes his tragic unraveling?",
       },
     ],
   },
 ];
-
-export function getJourneyById(id: string): ReadingJourney | undefined {
-  return READING_JOURNEYS.find((j) => j.id === id);
-}

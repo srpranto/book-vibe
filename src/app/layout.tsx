@@ -1,13 +1,13 @@
 import type { Metadata } from "next";
-import type { ReactNode } from "react";
+import type { ReactNode, ReactElement } from "react";
 import { Quicksand } from "next/font/google";
 import "./globals.css";
 import Navbar from "@/components/layout/Navbar";
 import Footer from "@/components/layout/Footer";
 import WishlistFAB from "@/components/ui/WishlistFAB";
 import { CommandPalette } from "@/components/ui/CommandPalette";
-import { AmbientReadingRoom } from "@/components/ui/AmbientReadingRoom";
 import { Providers } from "@/context/Providers";
+import { Toaster } from "@/components/ui/sonner";
 
 const quicksand = Quicksand({
   subsets: ["latin"],
@@ -17,9 +17,9 @@ const quicksand = Quicksand({
 });
 
 export const metadata: Metadata = {
-  title: "Book Vibe — Coffee & Books",
+  title: "Book Vibe — Coffee & Books Sanctuary",
   description:
-    "A cozy sanctuary for book discovery, classic literature, and coffee lovers",
+    "A cozy sanctuary for book discovery, classic literature, and coffee lovers. Powered by Open Library and Internet Archive.",
   icons: {
     icon: [
       { url: "/favicon.ico", sizes: "any" },
@@ -33,17 +33,17 @@ export const metadata: Metadata = {
 
 export default function RootLayout({
   children,
-}: Readonly<{ children: ReactNode }>): React.ReactElement {
+}: Readonly<{ children: ReactNode }>): ReactElement {
   return (
     <html lang="en" className={quicksand.variable}>
-      <body className="flex min-h-full flex-col bg-[#FAF7F2] text-[#241812] font-sans antialiased">
+      <body className="flex min-h-screen flex-col bg-background text-foreground font-sans antialiased">
         <Providers>
           <Navbar />
           <div className="flex-1">{children}</div>
           <Footer />
           <WishlistFAB />
           <CommandPalette />
-          <AmbientReadingRoom />
+          <Toaster position="top-right" richColors closeButton />
         </Providers>
       </body>
     </html>
