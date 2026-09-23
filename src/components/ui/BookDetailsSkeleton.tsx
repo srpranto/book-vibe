@@ -7,7 +7,7 @@ const BookDetailsSkeleton = (): ReactElement => {
       aria-label="Loading book details"
       className="min-h-screen px-4 py-8 md:py-12"
     >
-      <div className="container mx-auto max-w-6xl">
+      <div className="container mx-auto max-w-7xl">
         <div className="mb-6 flex flex-wrap items-center justify-between gap-3 animate-pulse">
           <div className="h-9 w-36 rounded-xl border border-[#DCC8B6] bg-white shadow-xs" />
 

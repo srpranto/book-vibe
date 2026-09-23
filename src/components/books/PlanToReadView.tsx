@@ -252,7 +252,7 @@ const PlanToReadView = ({ allBooks }: PlanToReadViewProps): ReactElement => {
   }
 
   return (
-    <div className="container mx-auto max-w-7xl px-3 sm:px-6 pb-24">
+    <div className="container mx-auto max-w-7xl pb-24">
       {/* Header Section */}
       <div className="mb-8 flex flex-col gap-5 lg:flex-row lg:items-end lg:justify-between">
         <div>

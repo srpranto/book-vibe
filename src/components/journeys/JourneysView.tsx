@@ -78,7 +78,7 @@ export const JourneysView = ({
   return (
     <div
       className={
-        embedded ? "w-full pb-12" : "container mx-auto max-w-6xl pb-24"
+        embedded ? "w-full pb-12" : "container mx-auto max-w-7xl pb-24"
       }
     >
       {!embedded ? (

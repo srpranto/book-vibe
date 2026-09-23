@@ -27,7 +27,7 @@ const Banner = (): ReactElement => {
   };
 
   return (
-    <section className="px-3 sm:px-4 py-6 md:py-12">
+    <section className="px-4 py-6 md:py-12">
       <div className="container mx-auto max-w-7xl">
         <div className="relative overflow-hidden rounded-3xl border border-border bg-linear-to-br from-[#F7EFE7] via-[#FAF6F0] to-[#ECE0D3] px-4 py-8 text-center shadow-xs ring-1 ring-border/50 sm:px-8 sm:py-12 md:px-16 md:py-16">
           <div className="pointer-events-none absolute -right-20 -top-20 h-72 w-72 rounded-full bg-secondary/20 blur-3xl" />
